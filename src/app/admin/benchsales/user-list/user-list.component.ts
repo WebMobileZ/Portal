@@ -131,9 +131,7 @@ export class UserListComponent implements OnInit {
     );
 
   }
-  editUser(id: number) {
-    this.router.navigate(['jobs/edit', id]);
-  }
+
   getColor(status: string, adminStatus: string) {
     if (adminStatus == "A") {
       return "#d4edda"

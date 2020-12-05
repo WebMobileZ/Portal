@@ -1,12 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-import { UserRoutingModule } from './user-routing.module';
+import { BenchSalesRoutingModule } from './bench-routing.module';
 import { UserIndexComponent } from './user-index/user-index.component';
-
 import { UserListComponent } from './user-list/user-list.component';
 import { UserCreateComponent } from './user-create/user-create.component';
-import { UserEditComponent } from './user-edit/user-edit.component';
 import { BenchSalesService } from './benchsales-rest.service';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TableModule } from 'primeng/table';
@@ -28,10 +25,10 @@ import { ConfirmDialogModule} from 'primeng/confirmdialog';
 import { CalculatorComponent } from './calculator/calculator.component';
 import { FieldPipe } from '../../field.pipe';
 @NgModule({
-  declarations: [UserIndexComponent,FieldPipe, UserListComponent,UserCreateComponent,UserEditComponent,CalculatorComponent],
+  declarations: [UserIndexComponent,FieldPipe, UserListComponent,UserCreateComponent,CalculatorComponent],
   imports: [
     CommonModule,
-    UserRoutingModule,
+    BenchSalesRoutingModule,
     ReactiveFormsModule, TableModule, MultiSelectModule,
     SliderModule,
     DialogModule,

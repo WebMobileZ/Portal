@@ -197,7 +197,7 @@ export class UserListComponent implements OnInit {
   }
   download(event: Event, url: any) {
 
-    window.open('http://localhost:8000/storage/' + url);
+    window.open('https://portal.webmobilez.com/publicstorage/' + url);
 
   }
   editUser(id: number) {
