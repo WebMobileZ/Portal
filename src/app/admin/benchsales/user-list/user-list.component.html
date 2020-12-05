@@ -1,0 +1,170 @@
+<p-toast position="bottom-right"></p-toast>
+<h4 class="remove-margin"> Consultant Submissions <a routerLink="/benchsales/create" class="btn btn-primary">
+    Add Submission
+  </a></h4>
+
+<p-table #dt [columns]="scrollableCols" [autoLayout]="true" [value]="benchsales" [scrollable]="true" [filterDelay]="0"
+  [globalFilterFields]="['consultatName']" [resizableColumns]="true" columnResizeMode="expand"
+  [reorderableColumns]="true" autoLayout="true" dataKey="reportId" [paginator]="true" [rows]="10"
+  [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading">
+  <ng-template pTemplate="colgroup" let-columns>
+    <colgroup>
+      <col style="width:70px">
+      <col *ngFor="let col of columns" style="width:200px">
+      <col style="width:200px">
+      <col style="width:200px">
+    </colgroup>
+  </ng-template>
+  <ng-template pTemplate="header" let-columns>
+    <tr>
+      <th>Action</th>
+      <th *ngFor="let col of columns" [ngStyle]="{'width': col.width}">
+        {{col.header}}
+      </th>
+    </tr>
+    <tr>
+      <th></th>
+      <th>
+        <input pInputText type="text" (input)="dt.filter($event.target.value, 'user_details.name', 'startsWith')"
+          placeholder="Created By" class="p-column-filter">
+      </th>
+      <th>
+        <input pInputText type="text" (input)="dt.filter($event.target.value, 'consultant.consultatName', 'startsWith')"
+          placeholder="Name" class="p-column-filter">
+      </th>
+      <th>
+        <input pInputText type="text" (input)="dt.filter($event.target.value, 'vendorStatus', 'startsWith')"
+          placeholder="Status" class="p-column-filter">
+      </th>
+      <th>
+        <input pInputText type="text" (input)="dt.filter($event.target.value, 'consultant.technology', 'startsWith')"
+          placeholder="Technology" class="p-column-filter">
+      </th>
+      <th>
+        <input pInputText type="text"
+          (input)="dt.filter($event.target.value, 'vendorlist.vendorCompanyName', 'startsWith')"
+          placeholder="Company Name" class="p-column-filter">
+      </th>
+      <th>
+        <input pInputText type="text"
+          (input)="dt.filter($event.target.value, 'vendor_detail.contactName', 'startsWith')" placeholder="Name"
+          class="p-column-filter">
+      </th>
+      <th>
+        <input pInputText type="text"
+          (input)="dt.filter($event.target.value, 'vendor_detail.contactEmail', 'startsWith')"
+          placeholder="Vendor Email" class="p-column-filter">
+      </th>
+      <th>
+        <input pInputText type="text"
+          (input)="dt.filter($event.target.value, 'vendor_detail.contactMobile', 'startsWith')"
+          placeholder="Vendor Mobile" class="p-column-filter">
+      </th>
+      <th>
+        <input pInputText type="text" (input)="dt.filter($event.target.value, 'clients.clientName', 'startsWith')"
+          placeholder="End Clinet" class="p-column-filter">
+      </th>
+      <th>
+        <input pInputText type="text" (input)="dt.filter($event.target.value, 'actualRate', 'startsWith')"
+          placeholder="actualRate" class="p-column-filter">
+      </th>
+      <th>
+        <input pInputText type="text" (input)="dt.filter($event.target.value, 'submissionRate', 'startsWith')"
+          placeholder="submissionRate" class="p-column-filter">
+      </th>
+
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-rowData let-columns="columns" let-editing="editing" let-ri="rowIndex">
+
+    <tr [pEditableRow]="rowData" [ngStyle]="{'background-color':getColor(rowData.reportStatus,rowData.adminStatus)}">
+      <td style="text-align:center">
+
+        <a (click)="showModalDialog(rowData)" class="btn btn-warning btn-sm">Edit</a>
+        <a (click)="showModalDialog1(rowData.vendorComments)" tabindex="0" data-toggle="popover" data-trigger="focus"
+          title="" data-original-title="Note"><img src="./assets/img/sticky.png"></a>
+      </td>
+
+      <td *ngFor="let col of columns">
+
+        {{rowData|field:col}}
+
+
+      </td>
+
+    </tr>
+  </ng-template>
+</p-table>
+<p-confirmDialog key="confirm-drop-database" header="Confirmation" acceptLabel="Yes" rejectLabel="No"
+  [(visible)]="confirmDropDatabaseDialogVisible"></p-confirmDialog>
+
+<p-dialog header="Status Change" [(visible)]="displayModal" [modal]="true" [style]="{width: '50vw'}"
+  [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+  <h5> {{heading1}}</h5>
+  <form [formGroup]="registerVendor" (ngSubmit)="registerUser(submissionId)">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="form-group">
+          <label for="popstatus">Status:</label>
+
+          <select class="form-control" #seleectevalue formControlName="vendorStatus">
+            <option value="">--select--</option>
+            <option value="Placed">Placed</option>
+            <option value="Interview scheduled">Interview scheduled</option>
+            <option value="Submitted to Client">Submitted to Client</option>
+            <option value="Submitted to Vendor">Submitted to Vendor</option>
+            <option value="Disqualified">Disqualified</option>
+            <option value="Client rejected">Client rejected</option>
+            <option value="Vendor Rejected">Vendor Rejected</option>
+            <option value="Vendor screening call">Vendor screening call</option>
+            <option value="Waiting for Evaluation">Waiting for Evaluation</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-lg-8" *ngIf="seleectevalue.value == 'Interview scheduled'">
+        <div class="form-group schedulepopdiv">
+          <label for="schedulepop">Schedule Date:</label>
+          <input type="date" class="form-control" formControlName="scheduleDate" value="2020-11-21 10:43:17"><br>
+
+        </div>
+      </div>
+      <div class="col-lg-4" *ngIf="seleectevalue.value == 'Interview scheduled'">
+        <div class="form-group schedulepopdiv">
+          <label for="timezone">Time Zone:</label>
+          <select class="form-control" formControlName="timezone">
+            <option value="">Choose Time Zone</option>
+            <option value="EST">EST</option>
+            <option value="PST">PST</option>
+            <option value="CST">CST</option>
+            <option value="MST">MST</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-lg-12">
+        <div class="form-group">
+          <label for="notepop">Comment:</label>
+          <textarea class="form-control" formControlName="vendorComments"></textarea>
+
+        </div>
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary btn-round">Update</button>
+  </form>
+
+
+  <ng-template pTemplate="footer">
+    <p-button icon="pi pi-check" (click)="displayModal=true" label="Yes" class="p-button-text"></p-button>
+    <p-button icon="pi pi-times" (click)="displayModal=false" label="No"></p-button>
+  </ng-template>
+</p-dialog>
+
+<p-dialog header="Note" [(visible)]="displayModal1" [modal]="true" [style]="{width: '50vw'}" [baseZIndex]="10000"
+  [draggable]="false" [resizable]="false">
+
+  <p>{{comment}}</p>
+  <ng-template pTemplate="footer">
+    <p-button icon="pi pi-check" (click)="displayModal1=true" label="Yes" class="p-button-text"></p-button>
+    <p-button icon="pi pi-times" (click)="displayModal1=false" label="No"></p-button>
+  </ng-template>
+</p-dialog>

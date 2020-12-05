@@ -1,0 +1,60 @@
+ <!-- MENU Start -->
+ <div class="navbar-custom">
+  <div class="container-fluid">
+      <!-- Logo-->
+      <div class="d-none d-lg-block">
+
+          <a routerLink="/dashboard" class="logo" style="color: #fff">
+              <img  src="https://webmobilez.com/wp-content/themes/webmobilez/images/logo_white.svg"
+              height="50px" class="svg-content">
+          </a>
+          <span class="txt-color"> {{clock| date:'fullDate':'EST'}} {{clock| date:'mediumTime':'EST'}}</span>
+              </div>
+      <!-- End Logo-->
+      <div id="navigation">
+        <ul class="nav navigation-menu">
+          <!-- <li *ngFor="let menuItem of menuItems" routerLinkActive="active" class="{{menuItem.class}}">
+              <a [routerLink]="[menuItem.path]">
+                  <i class="nc-icon {{menuItem.icon}}"></i>
+                  <p>{{menuItem.title}}</p>
+              </a>
+          </li> -->
+
+          <li  *ngFor="let menuItem of menuItems; let i = index" routerLinkActive="active" class="has-submenu {{menuItem.class}}">
+            <a *ngIf="menuItem.childMenu" data-toggle="collapse" href="#dashboardOverview{{i}}" aria-expanded="false" class="collapsed">
+                <i class="nc-icon nc-bank"></i>
+                <p>{{menuItem.title}}
+                      <b class="caret"></b>
+                  </p>
+            </a>
+            <a *ngIf="!menuItem.childMenu" [routerLink]="[menuItem.path]">
+              <i class="nc-icon {{menuItem.icon}}"></i>
+              <p>{{menuItem.title}}</p>
+            </a>
+
+          <div *ngIf="menuItem.childMenu" class="collapse" id="dashboardOverview{{i}}" aria-expanded="false" style="height: 0px;">
+            <ul class="nav">
+              <li *ngFor="let menu of menuItem.childMenu" routerLinkActive="active" class="{{menu.class}}">
+                <a [routerLink]="[menu.path]">
+                    <i class="nc-icon {{menu.icon}}"></i>
+                    <p>{{menu.title}}</p>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </li>
+
+        <li class="nav-item pd-top">
+          <a class="nav-link" (click)="logout()">
+            Logout
+            <!-- <p>
+              <span class="d-lg-none d-md-block">Account</span>
+            </p> -->
+          </a>
+        </li>
+      </ul>
+
+      </div> <!-- end #navigation -->
+  </div> <!-- end container -->
+</div> <!-- end navbar-custom -->
+

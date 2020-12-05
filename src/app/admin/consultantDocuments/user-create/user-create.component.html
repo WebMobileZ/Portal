@@ -1,0 +1,337 @@
+<p-toast position="bottom-right"></p-toast>
+<div class="row">
+  <div class="col-md-12">
+    <h4 class="remove-margin">Add Consultant </h4>
+    <div class="card">
+      <div class="card-header">
+        <!-- <h5 class="card-title">Edit Profile</h5> -->
+      </div>
+      <div class="card-body">
+        <form [formGroup]="registerForm" (ngSubmit)="registerUser()">
+          <div class="row">
+            <div class="col-md-3">
+              <div class="form-group">
+                <label>Consultant First Name:</label>
+                <input type="text" formControlName="consultatName" class="form-control" placeholder="First Name" required>
+                <div *ngIf="consultatName.invalid && (consultatName.dirty || consultatName.touched)" class="form-text text-muted">
+                  <div *ngIf="consultatName.errors?.required">
+                    First Name is required.
+                  </div>
+                  <div *ngIf="consultatName.errors?.minlength">
+                    First Name must be at least 2 characters long.
+                  </div>
+                </div>
+                <small class="form-text text-muted" *ngIf="serverErrors">{{ serverErrors.consultatName }}</small>
+
+              </div>
+            </div>
+
+            <div class="col-md-3">
+              <div class="form-group">
+                <label>Consultant Last Name:</label>
+                <input type="text" formControlName="consultantLastName" class="form-control" placeholder="Last Name" required>
+                <div *ngIf="consultantLastName.invalid && (consultantLastName.dirty || consultantLastName.touched)" class="form-text text-muted">
+                  <div *ngIf="consultantLastName.errors?.required">
+                    Last Name is required.
+                  </div>
+                  <div *ngIf="consultantLastName.errors?.minlength">
+                    Last Name must be at least 2 characters long.
+                  </div>
+                </div>
+                <small class="form-text text-muted" *ngIf="serverErrors">{{ serverErrors.consultantLastName }}</small>
+
+              </div>
+            </div>
+
+            <div class="col-md-3">
+              <div class="form-group">
+                <label for="exampleInputEmail1">Consultant Email</label>
+                <input type="email" formControlName="consultantEmail" class="form-control" placeholder="Email" required>
+
+                <div *ngIf="consultantEmail.invalid && (consultantEmail.dirty || consultantEmail.touched)" class="form-text text-muted">
+                  <div *ngIf="consultantEmail.errors?.required">
+                    Email is required.
+                  </div>
+                  <div *ngIf="consultantEmail.errors?.email">
+                    Invalid email address.
+                  </div>
+                </div>
+
+                <small class="form-text text-muted" *ngIf="serverErrors">{{ serverErrors.consultantEmail }}</small>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label>Consultant Mobile Number:</label>
+                <input type="text" formControlName="consultatMobileNumber" class="form-control" placeholder="Mobile Number" required>
+                <div *ngIf="consultatMobileNumber.invalid && (consultatMobileNumber.dirty || consultatMobileNumber.touched)" class="form-text text-muted">
+                  <div *ngIf="consultatMobileNumber.errors?.required">
+                    Mobile is required.
+                  </div>
+                  <div *ngIf="consultatMobileNumber.errors?.minlength">
+                    Mobile must be at least 10 number long.
+                  </div>
+                </div>
+                <small class="form-text text-muted" *ngIf="serverErrors">{{ serverErrors.consultatMobileNumber }}</small>
+
+              </div>
+            </div>
+
+          </div>
+          <div class="row">
+            <div class="col-md-3">
+              <div class="form-group">
+                <label>Technology</label>
+
+                <select  class="form-control" formControlName="technology">
+                  <option [ngValue]="null" disabled>Choose your profile</option>
+                  <option *ngFor="let prf of allProfiles" [ngValue]="prf">
+                   {{ prf.prName }}
+                  </option>
+                </select>
+                <div *ngIf="technology.invalid && (technology.dirty || technology.touched)" class="form-text text-muted">
+                  <div *ngIf="technology.errors?.required">
+                    Technology is required.
+                  </div>
+
+                </div>
+                <small class="form-text text-muted" *ngIf="serverErrors">{{ serverErrors.technology }}</small>
+
+              </div>
+            </div>
+
+            <div class="col-md-3">
+              <div class="form-group">
+                <label>Other Technology:</label>
+                <input type="text" formControlName="otherTechnologies" class="form-control" placeholder="Other Technology" required>
+                <div *ngIf="otherTechnologies.invalid && (otherTechnologies.dirty || otherTechnologies.touched)" class="form-text text-muted">
+                  <div *ngIf="otherTechnologies.errors?.required">
+                    Other Technology is required.
+                  </div>
+
+                </div>
+                <small class="form-text text-muted" *ngIf="serverErrors">{{ serverErrors.otherTechnologies }}</small>
+
+              </div>
+            </div>
+
+
+            <div class="col-md-1">
+              <div class="form-group">
+                <label>Expected Rate:</label>
+                <input type="text" formControlName="rate" class="form-control" placeholder="Rate" required>
+                <div *ngIf="rate.invalid && (rate.dirty || rate.touched)" class="form-text text-muted">
+                  <div *ngIf="rate.errors?.required">
+                    Rate is required.
+                  </div>
+
+                </div>
+                <small class="form-text text-muted" *ngIf="serverErrors">{{ serverErrors.rate }}</small>
+
+              </div>
+            </div>
+            <div class="col-md-1">
+              <div class="form-group">
+                <label>Experience:</label>
+                <input type="text" formControlName="experience" class="form-control" placeholder="exp" required>
+                <div *ngIf="experience.invalid && (experience.dirty || experience.touched)" class="form-text text-muted">
+                  <div *ngIf="experience.errors?.required">
+                    Experience is required.
+                  </div>
+
+                </div>
+                <small class="form-text text-muted" *ngIf="serverErrors">{{ serverErrors.experience }}</small>
+
+              </div>
+            </div>
+
+            <div class="col-md-2">
+              <div class="form-group">
+                <label>City:</label>
+                <input type="text" formControlName="city" class="form-control" placeholder="City" required>
+                <div *ngIf="city.invalid && (city.dirty || city.touched)" class="form-text text-muted">
+                  <div *ngIf="city.errors?.required">
+                    City is required.
+                  </div>
+
+                </div>
+                <small class="form-text text-muted" *ngIf="serverErrors">{{ serverErrors.city }}</small>
+
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="form-group">
+                <label>State:</label>
+                <input type="text" formControlName="state" class="form-control" placeholder="State" required>
+                <div *ngIf="state.invalid && (state.dirty || state.touched)" class="form-text text-muted">
+                  <div *ngIf="state.errors?.required">
+                    State is required.
+                  </div>
+
+                </div>
+                <small class="form-text text-muted" *ngIf="serverErrors">{{ serverErrors.state }}</small>
+
+              </div>
+            </div>
+
+
+          </div>
+          <div class="row">
+            <div class="col-md-2">
+              <div class="form-group">
+                <label>Willing to Reloacate:</label>
+                <input type="text" formControlName="willingLocation" class="form-control" placeholder="Relocate" required>
+                <div *ngIf="willingLocation.invalid && (willingLocation.dirty || willingLocation.touched)" class="form-text text-muted">
+                  <div *ngIf="willingLocation.errors?.required">
+                    First Name is required.
+                  </div>
+
+                </div>
+                <small class="form-text text-muted" *ngIf="serverErrors">{{ serverErrors.willingLocation }}</small>
+
+              </div>
+            </div>
+
+            <div class="col-md-2">
+              <div class="form-group">
+                <label>Documents collected:</label>
+                <input type="text" formControlName="documentsCollected" class="form-control"  required>
+                <div *ngIf="documentsCollected.invalid && (documentsCollected.dirty || documentsCollected.touched)" class="form-text text-muted">
+                  <div *ngIf="documentsCollected.errors?.required">
+                    Documents is required.
+                  </div>
+
+                </div>
+                <small class="form-text text-muted" *ngIf="serverErrors">{{ serverErrors.documentsCollected }}</small>
+
+              </div>
+            </div>
+
+            <div class="col-md-2">
+              <div class="form-group">
+                <label for="exampleInputEmail1">Resource:</label>
+                <input type="text" formControlName="resource" class="form-control" placeholder="Email" required>
+
+                <div *ngIf="resource.invalid && (resource.dirty || resource.touched)" class="form-text text-muted">
+                  <div *ngIf="resource.errors?.required">
+                    Resource is required.
+                  </div>
+
+                </div>
+
+                <small class="form-text text-muted" *ngIf="serverErrors">{{ serverErrors.resource }}</small>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="form-group">
+                <label>Status</label>
+                <input type="text" formControlName="reportStatus" class="form-control" placeholder="Status" required>
+                <div *ngIf="reportStatus.invalid && (reportStatus.dirty || reportStatus.touched)" class="form-text text-muted">
+                  <div *ngIf="reportStatus.errors?.required">
+                    Mobile is required.
+                  </div>
+
+                </div>
+                <small class="form-text text-muted" *ngIf="serverErrors">{{ serverErrors.reportStatus }}</small>
+
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="form-group">
+                <label>Last 4 digits of SSN :</label>
+                <input type="text" formControlName="ssn" class="form-control" placeholder="SSN" required>
+                <div *ngIf="ssn.invalid && (ssn.dirty || ssn.touched)" class="form-text text-muted">
+                  <div *ngIf="ssn.errors?.required">
+                    Mobile is required.
+                  </div>
+                  <div *ngIf="ssn.errors?.minlength">
+                    Mobile must be at least 4 number long.
+                  </div>
+                </div>
+                <small class="form-text text-muted" *ngIf="serverErrors">{{ serverErrors.ssn }}</small>
+
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="form-group">
+                <label>Best Contact Number</label>
+                <input type="text" formControlName="bestContactNumber" class="form-control" placeholder="Best Contact Number"
+                  required>
+                <div *ngIf="bestContactNumber.invalid && (bestContactNumber.dirty || bestContactNumber.touched)" class="form-text text-muted">
+                  <div *ngIf="bestContactNumber.errors?.required">
+                    Best ContactNumber is required.
+                  </div>
+
+                </div>
+                <small class="form-text text-muted" *ngIf="serverErrors">{{ serverErrors.bestContactNumber }}</small>
+
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-3">
+              <div class="form-group">
+                <label>Skype ID:</label>
+                <input type="text" formControlName="skypeId" class="form-control" placeholder="SkypeId" required>
+
+              </div>
+            </div>
+
+            <div class="col-md-3">
+              <div class="form-group">
+                <label>linked In Url:</label>
+                <input type="text" formControlName="linkedInUrl" class="form-control" placeholder="Linkedin Url" required>
+              </div>
+            </div>
+
+            <div class="col-md-2">
+              <div class="form-group">
+                <label for="exampleInputEmail1">Availability:</label>
+                <input type="text" formControlName="availability" class="form-control" placeholder="availability" required>
+
+
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="form-group">
+                <label>Priority</label>
+                <input type="text" formControlName="priority" class="form-control" placeholder="Priority" required>
+                <div *ngIf="priority.invalid && (priority.dirty || priority.touched)" class="form-text text-muted">
+                  <div *ngIf="priority.errors?.required">
+                    priority is required.
+                  </div>
+
+                </div>
+                <small class="form-text text-muted" *ngIf="serverErrors">{{ serverErrors.priority }}</small>
+
+              </div>
+            </div>
+            <div class="col-md-1">
+              <div class="form-group">
+                <label>Visa Type:</label>
+                <input type="text" formControlName="visaType" class="form-control" placeholder="Visa Type" required>
+                <div *ngIf="visaType.invalid && (visaType.dirty || visaType.touched)" class="form-text text-muted">
+                  <div *ngIf="visaType.errors?.required">
+                    Visa Type is required.
+                  </div>
+
+                </div>
+                <small class="form-text text-muted" *ngIf="serverErrors">{{ serverErrors.visaType }}</small>
+
+              </div>
+            </div>
+
+          </div>
+
+          <div class="row">
+            <div class="update ml-auto mr-auto">
+              <button type="submit" class="btn btn-primary btn-round" [disabled]="!registerForm.valid">Submit
+                Consultant</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

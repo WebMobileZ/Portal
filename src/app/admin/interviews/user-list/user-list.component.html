@@ -1,0 +1,74 @@
+<h4 class="remove-margin"> Schedule Interviews </h4>
+
+<p-table #dt1 [columns]="scrollableCols" [autoLayout]="true" [value]="timeSheets" [scrollable]="true" [filterDelay]="0"
+  [globalFilterFields]="['consultatName']" [resizableColumns]="true" columnResizeMode="expand"
+  [reorderableColumns]="true" autoLayout="true" dataKey="reportId" editMode="row" [paginator]="true" [rows]="10"
+  [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading">
+  <ng-template pTemplate="colgroup" let-columns>
+    <colgroup>
+
+      <col *ngFor="let col of columns" style="width:200px">
+      <col style="width:200px">
+      <col style="width:200px">
+    </colgroup>
+  </ng-template>
+  <ng-template pTemplate="header" let-columns>
+    <tr>
+      <th>Interview Date</th>
+      <th>Consultant Name</th>
+      <th>Created By</th>
+      <th *ngFor="let col of columns" [ngStyle]="{'width': col.width}">
+        {{col.header}}
+      </th>
+    </tr>
+    <tr>
+      <th>  <input pInputText type="text" (input)="dt1.filter($event.target.value, 'scheduleDate', 'startsWith')"
+        placeholder="Date" class="p-column-filter"></th>
+      <th>  <input pInputText type="text" (input)="dt1.filter($event.target.value, 'consultant.consultatName', 'startsWith')"
+        placeholder="Consultant Name" class="p-column-filter"></th>
+      <th>  <input pInputText type="text" (input)="dt1.filter($event.target.value, 'user_details.name', 'startsWith')"
+        placeholder="Created By" class="p-column-filter"></th>
+      <th>
+        <input pInputText type="text" (input)="dt1.filter($event.target.value, 'vendorCompanyName', 'startsWith')"
+          placeholder="Company Name" class="p-column-filter">
+      </th>
+      <th>
+        <input pInputText type="text" (input)="dt1.filter($event.target.value, 'endClientName', 'startsWith')"
+          placeholder="Name" class="p-column-filter">
+      </th>
+
+      <th> <input pInputText type="text" (input)="dt1.filter($event.target.value, 'consultant.technology', 'startsWith')"
+          placeholder="Technology" class="p-column-filter"></th>
+      <th>
+        <input pInputText type="text" (input)="dt1.filter($event.target.value, 'endClientLocation', 'startsWith')"
+          placeholder="End Client" class="p-column-filter">
+      </th>
+      <th>
+        <input pInputText type="text" (input)="dt1.filter($event.target.value, 'submissionRate', 'startsWith')"
+          placeholder="Submission Rate" class="p-column-filter">
+      </th>
+      <th>
+        <input pInputText type="text" (input)="dt1.filter($event.target.value, 'actualRate', 'startsWith')"
+          placeholder="Actual Rate" class="p-column-filter">
+      </th>
+      </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-rowData let-columns="columns" let-editing="editing" let-ri="rowIndex">
+
+    <tr [pEditableRow]="rowData" [ngStyle]="{'background-color':getColor(rowData.reportStatus,rowData.adminStatus)}">
+
+      <td>{{rowData.scheduleDate | date }} {{rowData.timezone}} </td>
+      <td>{{rowData.consultant.consultatName }} {{rowData.consultant.consultantLastName }}</td>
+      <td>{{rowData.user_details.name}}<br>{{rowData.created_at | date}}</td>
+      <td *ngFor="let col of columns">
+
+        {{rowData|field:col}}
+
+
+      </td>
+
+    </tr>
+  </ng-template>
+</p-table>
+<p-confirmDialog key="confirm-drop-database" header="Confirmation" acceptLabel="Yes" rejectLabel="No"
+  [(visible)]="confirmDropDatabaseDialogVisible"></p-confirmDialog>
