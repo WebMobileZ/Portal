@@ -8,7 +8,9 @@ import { SortEvent } from 'primeng/api';
   styleUrls: ['./user-index.component.scss']
 })
 export class UserIndexComponent implements OnInit {
-
+  userList: Array<object> = [];
+  timeSheets: Array<object> = [];
+    statuses: any[];
     loading: boolean = true;
   constructor(private route: ActivatedRoute,  private router: Router) { }
 

@@ -2,8 +2,6 @@
 <div class="row">
   <div class="col-md-12">
     <h4 class="remove-margin">Add Submissions </h4>
-    <button type="button" class="btn btn-primary btn-round btn-length" (click)="showCalculator()">Percentage Calculator</button>
-    <button type="button" class="btn btn-primary btn-round" (click)="showCalculator1()">Calculator</button>
     <div class="card">
       <div class="card-header">
         <!-- <h5 class="card-title">Edit Profile</h5> -->
@@ -107,7 +105,7 @@
                 <label>Choose End CLient:</label>
                 <p-dropdown #dfrf [options]="clients" [(ngModel)]="selectedClients" formControlName="clientId"
                   [style]="{'width':'100%'}" scrollHeight="400px" filter="true" filterBy="value,label"
-                  resetFilterOnHide="true" (onChange)="ChangeClients($event)" (keydown)="clientsUi($event)">
+                  resetFilterOnHide="true" (onChange)="ChangeClients($event)" >
                 </p-dropdown>
                 <div *ngIf="clientId.invalid && (clientId.dirty || clientId.touched)" class="form-text text-muted">
                   <div *ngIf="clientId.errors?.required">
@@ -175,6 +173,7 @@
                   <option value="Vendor Rejected">Vendor Rejected</option>
                   <option value="Vendor screening call">Vendor screening call</option>
                   <option value="Waiting for Evaluation">Waiting for Evaluation</option>
+                  <option value="Placed">Placed</option>
                 </select>
                 <div *ngIf="vendorStatus.invalid && (vendorStatus.dirty || vendorStatus.touched)"
                   class="form-text text-muted">
@@ -191,10 +190,11 @@
                 <input type="date" class="form-control" formControlName="scheduleDate" placeholder="Interview Schedule Date">
               </div>
             </div>
-            <div class="col-md-2" formControlName="timezone" *ngIf="(statusvalue.value=='Interview scheduled')">
+            <div class="col-md-2"  *ngIf="(statusvalue.value=='Interview scheduled')">
               <div class="form-group">
                 <label> Time Zone :</label>
-                <select class="form-control">
+                <select class="form-control" formControlName="timezone">
+
                   <option value="EST">EST</option>
                   <option value="PST">PST</option>
                   <option value="CST">CST</option>
@@ -281,7 +281,7 @@
     <div class="row">
       <div class="col-md-3">
         <div class="form-group">
-          <label>Vendor Company Name:</label>
+          <label>Company Name:</label>
           <input type="text" class="form-control" formControlName="vendorCompanyName" placeholder="Vendor Company Name">
           <div *ngIf="vendorCompanyName.invalid && (vendorCompanyName.dirty || vendorCompanyName.touched)"
             class="form-text text-muted">
@@ -295,7 +295,7 @@
       </div>
       <div class="col-md-3">
         <div class="form-group">
-          <label>Name:</label>
+          <label>Vendor Name:</label>
           <input type="text" class="form-control" formControlName="contactName" placeholder="Vendor Contact Name">
 
         </div>
@@ -348,97 +348,7 @@
     <p-button icon="pi pi-times" (click)="displayModal=false" label="No"></p-button>
   </ng-template>
 </p-dialog>
-<p-dialog header="percentage Off" [(visible)]="calculatorModal" [modal]="true" [style]="{width: '50vw'}"
-  [baseZIndex]="10000" [draggable]="false" [resizable]="false">
 
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="card">
-          <div class="card-body">
-
-            <form id="userForm" method="post" name="percent_off">
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text">$</span>
-                    </div>
-                    <input type="number" name="list" value="52" class="form-control"
-                      aria-label="Amount (to the nearest dollar)" [(ngModel)]="num1" >
-                  </div>
-
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-6">
-                  <label class="control-label required" for="percent_off_p">Percent Off</label>
-                  <div class="input-group mb-3">
-
-                    <div class="input-group-prepend">
-                      <span class="input-group-text" id="basic-addon1">%</span>
-                    </div>
-                    <select class="form-control" name="disc" [(ngModel)]="num2">
-                      <option value="20">20</option>
-                      <option value="20">15</option>
-                      <option value="20">20</option>
-                      <option value="25">25</option>
-                      <option value="30">30</option>
-                    </select>
-                  </div>
-
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-4">
-                  <div class="form-group">
-                    <br>
-                    <button type="submit" id="percent_off_save" name="percent_off[save]"
-                      class="button btn-lg btn btn-primary btn-block btn">Calculate Percent Off</button>
-                  </div>
-
-                </div>
-              </div>
-            </form>
-            <div class="row">
-              <div class="col-md-4">
-                <div class="form-group">
-                  <div id="result" style="height: auto !important;">
-                    <label class="control-label required" for="percent_off_p">Result :</label> {{ ConvertToInt(num1)  -( ConvertToInt(num1)*ConvertToInt(num2)/100)  }}
-                  </div>
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <ng-template pTemplate="footer">
-    <p-button icon="pi pi-check" (click)="displayModal=true" label="Yes" class="p-button-text"></p-button>
-    <p-button icon="pi pi-times" (click)="displayModal=false" label="No"></p-button>
-  </ng-template>
-</p-dialog>
-<p-dialog header="Calculator" [(visible)]="calculatorModal1" [modal]="true" [style]="{width: '50vw'}"
-  [baseZIndex]="10000" [draggable]="false" [resizable]="false">
-
-  <div class="container">
-    <div class="row">
-      <div class="col-md-8">
-        <div class="card">
-          <div class="card-body">
-<ng-calculator></ng-calculator>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <ng-template pTemplate="footer">
-    <p-button icon="pi pi-check" (click)="displayModal=true" label="Yes" class="p-button-text"></p-button>
-    <p-button icon="pi pi-times" (click)="displayModal=false" label="No"></p-button>
-  </ng-template>
-</p-dialog>
 <p-dialog header="Add Client" [(visible)]="displayModalClient" [modal]="true" [style]="{width: '50vw'}"
   [baseZIndex]="10000" [draggable]="false" [resizable]="false">
   <form [formGroup]="registerClient" (ngSubmit)="registerClientForm()">
@@ -447,6 +357,13 @@
         <div class="form-group">
           <label>Client Name:</label>
           <input type="text" class="form-control" formControlName="clientName" placeholder="Client Name">
+          <div *ngIf="clientName.invalid && (clientName.dirty || clientName.touched)"
+          class="form-text text-muted">
+          <div *ngIf="clientName.errors?.required">
+            Client Name is required.
+          </div>
+        </div>
+        <small class="form-text text-muted" *ngIf="serverErrors">{{ serverErrors.clientName }}</small>
         </div>
       </div>
     </div>
@@ -457,3 +374,26 @@
     <p-button icon="pi pi-times" (click)="displayModal=false" label="No"></p-button>
   </ng-template>
 </p-dialog>
+
+<p-table [columns]="cols" [value]="data"  [scrollable]="true"
+[filterDelay]="0"  [resizableColumns]="true" columnResizeMode="expand" [reorderableColumns]="true"
+autoLayout="true">
+  <ng-template pTemplate="header" let-columns>
+      <tr>
+          <th *ngFor="let col of columns">
+              {{col.header}}
+          </th>
+      </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-rowData let-columns="columns">
+      <tr>
+          <td *ngFor="let col of columns">
+            {{rowData|field:col}}
+          </td>
+      </tr>
+  </ng-template>
+
+  <ng-template pTemplate="summary">
+      There are {{data?.length}} Submissions
+  </ng-template>
+</p-table>

@@ -1,60 +1,109 @@
  <!-- MENU Start -->
- <div class="navbar-custom">
-  <div class="container-fluid">
-      <!-- Logo-->
-      <div class="d-none d-lg-block">
 
-          <a routerLink="/dashboard" class="logo" style="color: #fff">
-              <img  src="https://webmobilez.com/wp-content/themes/webmobilez/images/logo_white.svg"
-              height="50px" class="svg-content">
-          </a>
-          <span class="txt-color"> {{clock| date:'fullDate':'EST'}} {{clock| date:'mediumTime':'EST'}}</span>
-              </div>
-      <!-- End Logo-->
-      <div id="navigation">
-        <ul class="nav navigation-menu">
-          <!-- <li *ngFor="let menuItem of menuItems" routerLinkActive="active" class="{{menuItem.class}}">
-              <a [routerLink]="[menuItem.path]">
-                  <i class="nc-icon {{menuItem.icon}}"></i>
-                  <p>{{menuItem.title}}</p>
-              </a>
-          </li> -->
+ <div class="navbar-custom" >
+    <a routerLink="/dashboard" class="logo" style="color: #fff; padding-left:80px;padding-right:80px ;">
+      <img  src="../../assets/img/group.png"
+       class="svg-content">
+  </a>
 
-          <li  *ngFor="let menuItem of menuItems; let i = index" routerLinkActive="active" class="has-submenu {{menuItem.class}}">
-            <a *ngIf="menuItem.childMenu" data-toggle="collapse" href="#dashboardOverview{{i}}" aria-expanded="false" class="collapsed">
-                <i class="nc-icon nc-bank"></i>
-                <p>{{menuItem.title}}
-                      <b class="caret"></b>
-                  </p>
-            </a>
-            <a *ngIf="!menuItem.childMenu" [routerLink]="[menuItem.path]">
-              <i class="nc-icon {{menuItem.icon}}"></i>
-              <p>{{menuItem.title}}</p>
-            </a>
+  <p-menubar [model]="items" >
 
-          <div *ngIf="menuItem.childMenu" class="collapse" id="dashboardOverview{{i}}" aria-expanded="false" style="height: 0px;">
-            <ul class="nav">
-              <li *ngFor="let menu of menuItem.childMenu" routerLinkActive="active" class="{{menu.class}}">
-                <a [routerLink]="[menu.path]">
-                    <i class="nc-icon {{menu.icon}}"></i>
-                    <p>{{menu.title}}</p>
-                </a>
-              </li>
-            </ul>
-          </div>
-        </li>
+    <span class="txt-color txt-center" style="text-align: center;">&nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; {{clock| date:'mediumTime':'EST'}}</span><br>
+    <span class="txt-color">{{clock| date:'fullDate':'EST'}}</span>
 
-        <li class="nav-item pd-top">
-          <a class="nav-link" (click)="logout()">
-            Logout
-            <!-- <p>
-              <span class="d-lg-none d-md-block">Account</span>
-            </p> -->
-          </a>
-        </li>
-      </ul>
+  </p-menubar>
 
-      </div> <!-- end #navigation -->
-  </div> <!-- end container -->
+
+
 </div> <!-- end navbar-custom -->
+<p-dialog header="percentage Off" [(visible)]="calculatorModal" [modal]="true" [style]="{width: '50vw'}"
+  [baseZIndex]="10000" [draggable]="false" [resizable]="false">
 
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-body">
+
+            <form id="userForm" method="post" name="percent_off">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text">$</span>
+                    </div>
+                    <input type="number" name="list" value="52" class="form-control"
+                      aria-label="Amount (to the nearest dollar)" [(ngModel)]="num1" >
+                  </div>
+
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <label class="control-label required" for="percent_off_p">Percent Off</label>
+                  <div class="input-group mb-3">
+
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="basic-addon1">%</span>
+                    </div>
+                    <select class="form-control" name="disc" [(ngModel)]="num2">
+                      <option value="10">10</option>
+                      <option value="15">15</option>
+                      <option value="20">20</option>
+                      <option value="25">25</option>
+                      <option value="30">30</option>
+                    </select>
+                  </div>
+
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <br>
+                    <button type="submit" id="percent_off_save" name="percent_off[save]"
+                      class="button btn-lg btn btn-primary btn-block btn">Calculate Percent Off</button>
+                  </div>
+
+                </div>
+              </div>
+            </form>
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <div id="result" style="height: auto !important;">
+                    <label class="control-label required" for="percent_off_p">Result :</label> {{ ConvertToInt(num1)  -( ConvertToInt(num1)*ConvertToInt(num2)/100)  }}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ng-template pTemplate="footer">
+    <p-button icon="pi pi-check" (click)="displayModal=true" label="Yes" class="p-button-text"></p-button>
+    <p-button icon="pi pi-times" (click)="displayModal=false" label="No"></p-button>
+  </ng-template>
+</p-dialog>
+<p-dialog header="Calculator" [(visible)]="calculatorModal1" [modal]="true" [style]="{width: '50vw'}"
+  [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8">
+        <div class="card">
+          <div class="card-body">
+<ng-calculator></ng-calculator>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ng-template pTemplate="footer">
+    <p-button icon="pi pi-check" (click)="displayModal=true" label="Yes" class="p-button-text"></p-button>
+    <p-button icon="pi pi-times" (click)="displayModal=false" label="No"></p-button>
+  </ng-template>
+</p-dialog>

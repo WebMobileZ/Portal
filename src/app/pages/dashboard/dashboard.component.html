@@ -1,2 +1,220 @@
-<h4 class="remove-margin">DashBoard</h4>
+<h4 class="remove-margin"></h4>
 
+<div class="container" *ngIf="menuexpectedrole=='Admin'">
+
+  <div class="row row-cols-1 row-cols-sm-4 row-cols-md-4 g-3 p-3">
+    <div class="col">
+     <a [routerLink]="['/superadmin/userlist']">
+      <figure class="figure">
+        <img src="../../assets/img/conversation.png" class="figure-img img-fluid rounded" >
+        <figcaption class="figure-caption text-center">Users</figcaption>
+      </figure>
+    </a>
+    </div>
+    <div class="col">
+      <a [routerLink]="['/superadmin/interviews']">
+        <figure class="figure">
+          <img src="../../assets/img/schedule.png" class="figure-img img-fluid rounded">
+          <figcaption class="figure-caption text-center">Interview Schedule</figcaption>
+        </figure>
+      </a>
+
+    </div>
+    <div class="col">
+      <a [routerLink]="['/superadmin/documents']">
+        <figure class="figure">
+          <img src="../../assets/img/download-btn.png" class="figure-img img-fluid rounded" >
+          <figcaption class="figure-caption text-center">Download Center</figcaption>
+        </figure>
+      </a>
+
+    </div>
+    <div class="col">
+      <a [routerLink]="['/superadmin/sumissionlist']">
+        <figure class="figure">
+          <img src="../../assets/img/work-from-home.png" class="figure-img img-fluid rounded" >
+          <figcaption class="figure-caption text-center">Bench Sales <br>Submissions</figcaption>
+        </figure>
+      </a>
+    </div>
+
+  </div>
+  <div class="row row-cols-1 row-cols-sm-4 row-cols-md-4 g-3 p-3">
+    <div class="col">
+      <a [routerLink]="['/superadmin/consultantlist']">
+        <figure class="figure">
+          <img src="../../assets/img/consultation.png" class="figure-img img-fluid rounded" >
+          <figcaption class="figure-caption text-center">Head Hunters</figcaption>
+        </figure>
+      </a>
+    </div>
+    <div class="col">
+      <a [routerLink]="['/calculator']">
+        <figure class="figure">
+          <img src="../../assets/img/calculator.png" class="figure-img img-fluid rounded" >
+          <figcaption class="figure-caption text-center">Calculater</figcaption>
+        </figure>
+      </a>
+    </div>
+    <div class="col">
+      <a [routerLink]="['/superadmin/hotlist']">
+        <figure class="figure">
+          <img src="../../assets/img/search.png" class="figure-img img-fluid rounded" >
+          <figcaption class="figure-caption text-center">Hot List</figcaption>
+        </figure>
+      </a>
+    </div>
+    <div class="col">
+      <a [routerLink]="['/jobs/list']">
+        <figure class="figure">
+          <img src="../../assets/img/businessman.png" class="figure-img img-fluid rounded" >
+          <figcaption class="figure-caption text-center">Jobs</figcaption>
+        </figure>
+      </a>
+    </div>
+  </div>
+</div>
+<div class="container" *ngIf="menuexpectedrole=='BenchSales'">
+
+  <div class="row row-cols-1 row-cols-sm-4 row-cols-md-4 g-3 p-3">
+
+    <div class="col">
+      <a [routerLink]="['/benchsales/interviews']">
+        <figure class="figure">
+          <img src="../../assets/img/schedule.png" class="figure-img img-fluid rounded">
+          <figcaption class="figure-caption text-center">Interview Schedule</figcaption>
+        </figure>
+      </a>
+
+    </div>
+    <div class="col">
+      <a [routerLink]="['/benchsales/documentlist']">
+        <figure class="figure">
+          <img src="../../assets/img/download-btn.png" class="figure-img img-fluid rounded" >
+          <figcaption class="figure-caption text-center">Download Center</figcaption>
+        </figure>
+      </a>
+
+    </div>
+    <div class="col">
+      <a [routerLink]="['/benchsales/list']">
+        <figure class="figure">
+          <img src="../../assets/img/work-from-home.png" class="figure-img img-fluid rounded" >
+          <figcaption class="figure-caption text-center">Submissions</figcaption>
+        </figure>
+      </a>
+    </div>
+    <div class="col">
+      <a [routerLink]="['/benchsales/hotlist']">
+        <figure class="figure">
+          <img src="../../assets/img/search.png" class="figure-img img-fluid rounded" >
+          <figcaption class="figure-caption text-center">Hot List</figcaption>
+        </figure>
+      </a>
+    </div>
+    <div class="col">
+      <a [routerLink]="['/calculator']">
+        <figure class="figure">
+          <img src="../../assets/img/calculator.png" class="figure-img img-fluid rounded" >
+          <figcaption class="figure-caption text-center">Calculater</figcaption>
+        </figure>
+      </a>
+    </div>
+
+  </div>
+  <div class="row row-cols-1 row-cols-sm-4 row-cols-md-4 g-3 p-3">
+
+  </div>
+</div>
+<div class="container" *ngIf="menuexpectedrole=='HeadHuntersAdmin'">
+
+  <div class="row row-cols-1 row-cols-sm-4 row-cols-md-4 g-3 p-3">
+    <div class="col">
+      <a [routerLink]="['/headadminconsultants/list']">
+        <figure class="figure">
+          <img src="../../assets/img/consultation.png" class="figure-img img-fluid rounded" >
+          <figcaption class="figure-caption text-center">Head Hunters</figcaption>
+        </figure>
+      </a>
+    </div>
+
+    <div class="col">
+      <a [routerLink]="['/headadminconsultants/hotlist']">
+        <figure class="figure">
+          <img src="../../assets/img/search.png" class="figure-img img-fluid rounded" >
+          <figcaption class="figure-caption text-center">Hot List</figcaption>
+        </figure>
+      </a>
+    </div>
+
+    <div class="col">
+      <a [routerLink]="['/calculator']">
+        <figure class="figure">
+          <img src="../../assets/img/calculator.png" class="figure-img img-fluid rounded" >
+          <figcaption class="figure-caption text-center">Calculater</figcaption>
+        </figure>
+      </a>
+    </div>
+
+  </div>
+
+</div>
+<div class="container" *ngIf="menuexpectedrole=='HeadHunters'">
+
+  <div class="row row-cols-1 row-cols-sm-4 row-cols-md-4 g-3 p-3">
+    <div class="col">
+      <a [routerLink]="['/huntersconsultants/list']">
+        <figure class="figure">
+          <img src="../../assets/img/consultation.png" class="figure-img img-fluid rounded" >
+          <figcaption class="figure-caption text-center">Head Hunters</figcaption>
+        </figure>
+      </a>
+    </div>
+
+    <div class="col">
+      <a [routerLink]="['/huntersconsultants/hotlist']">
+        <figure class="figure">
+          <img src="../../assets/img/search.png" class="figure-img img-fluid rounded" >
+          <figcaption class="figure-caption text-center">Hot List</figcaption>
+        </figure>
+      </a>
+    </div>
+
+    <div class="col">
+      <a [routerLink]="['/calculator']">
+        <figure class="figure">
+          <img src="../../assets/img/calculator.png" class="figure-img img-fluid rounded" >
+          <figcaption class="figure-caption text-center">Calculater</figcaption>
+        </figure>
+      </a>
+    </div>
+
+  </div>
+</div>
+<div class="container" *ngIf="menuexpectedrole=='Accountmanager'">
+
+  <div class="row row-cols-1 row-cols-sm-4 row-cols-md-4 g-3 p-3">
+
+    <div class="col">
+      <a [routerLink]="['/jobs/list']">
+        <figure class="figure">
+          <img src="../../assets/img/businessman.png" class="figure-img img-fluid rounded" >
+          <figcaption class="figure-caption text-center">Jobs</figcaption>
+        </figure>
+      </a>
+    </div>
+
+    <div class="col">
+      <a [routerLink]="['/calculator']">
+        <figure class="figure">
+          <img src="../../assets/img/calculator.png" class="figure-img img-fluid rounded" >
+          <figcaption class="figure-caption text-center">Calculater</figcaption>
+        </figure>
+      </a>
+    </div>
+
+  </div>
+  <div class="row row-cols-1 row-cols-sm-4 row-cols-md-4 g-3 p-3">
+
+  </div>
+</div>

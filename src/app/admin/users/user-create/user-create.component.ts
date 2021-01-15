@@ -33,7 +33,7 @@ export class UserCreateComponent implements OnInit {
       this.userRest.storeUser(this.registerForm).subscribe(
         response => {
           console.log(response),
-          this.router.navigate(['users/list'])
+          this.router.navigate(['superadmin/userlist'])
         },
         error =>{
           this.serverErrors = error.error.errors

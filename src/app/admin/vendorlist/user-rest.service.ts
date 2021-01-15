@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/internal/Observable';
-import { Product } from '../consultants/product';
+import {environment} from "../../../environments/environment";
 @Injectable({
   providedIn: 'root'
 })
@@ -10,37 +10,41 @@ export class UserRestService {
   constructor(private http: HttpClient) { }
 
   getTimeSheet(): Observable<any> {
-    return this.http.get('http://localhost:8000/api/getAllTimesheets');
+    return this.http.get(`${environment.api}/getAllTimesheets`);
   }
-  getConsultants(): Observable<Product> {
-    return this.http.get('http://localhost:8000/api/getAllConsultants/');
+  getConsultants(): Observable<any> {
+    return this.http.get(`${environment.api}/getAllConsultants/`);
   }
   getProductsSmall() {
-    return this.http.get<any>('http://localhost:8000/api/getAllConsultants/')
-    .toPromise()
-    .then(res => <Product[]>res.timesheet)
-    .then(data => { return data; });
+    return this.http.get<any>(`${environment.api}/vendorlist/`);
+
 }
+getProductsSmallpagination(page) {
+  return this.http.get<any>(`${environment.api}/vendorlist/?page=`+page);
+
+}
+
   storeUser(form): Observable<any> {
-    return this.http.post('http://localhost:8000/api/store-consultant',form.value);
+    return this.http.post(`${environment.api}/store-consultant`,form.value);
   }
  statusChangeConsultant(index): Observable<any> {
 
-    return this.http.post('http://localhost:8000/api/status-consultant',index);
+    return this.http.post(`${environment.api}/status-consultant`,index);
   }
 
   editUser(id): Observable<any> {
-    return this.http.get('http://localhost:8000/api/store-consultant/' + id);
+    return this.http.get(`${environment.api}/store-consultant/` + id);
   }
   updateUser(form,id): Observable<any> {
-    return this.http.put('http://localhost:8000/api/store-consultant/' + id, form.value);
+    return this.http.put(`${environment.api}/store-consultant/` + id, form.value);
   }
   storeDocument(document): Observable<any> {
 
-    return this.http.post('http://localhost:8000/api/saveDocument', document);
+    return this.http.post(`${environment.api}/saveDocument`, document);
   }
   removeFile(document): Observable<any> {
 
-    return this.http.post('http://localhost:8000/api/removeDocument', document);
+    return this.http.post(`${environment.api}/removeDocument`, document);
   }
 }
+

@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ɵConsole } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BenchSalesService } from '../benchsales-rest.service';
+import { UserRestService } from '../user-rest.service';
 import { SelectItem } from 'primeng/api';
 import { SelectItemGroup } from 'primeng/api';
 import { Calendar } from 'primeng/primeng';
@@ -19,11 +19,10 @@ export class Profile {
 })
 export class UserCreateComponent implements OnInit {
   @ViewChild('dd', { static: true }) dropdown: any;
-  num1: number = 52;
-  num2: number = 20;
+
   countries: any[];
   selectedCountry: string;
-  tech: SelectItem[];
+  cars: SelectItem[];
   states: SelectItem[];
   vendors: SelectItem[];
   contacts: SelectItem[];
@@ -51,23 +50,41 @@ export class UserCreateComponent implements OnInit {
   registerForm1: FormGroup;
   displayModal: boolean;
   displayModal1: boolean;
-  calculatorModal: boolean;
+
   registerClient: FormGroup;
-  calculatorModal1: boolean;
+
   displayModalClient: boolean;
-  constructor(private route: ActivatedRoute, private messageService: MessageService, private restService: BenchSalesService, private router: Router) { }
+    data: any[];
+
+    cols: any[];
+
+  constructor(private route: ActivatedRoute, private messageService: MessageService, private userRest: UserRestService, private router: Router) { }
 
   ngOnInit() {
+  this.cols = [
+    { field: 'user_details.name', header: 'Created By', width: '20%', editable: false },
+    { field: 'consultant.consultatName', header: 'Consultant Name', width: '20%', editable: false },
+    { field: 'consultant.technology', header: 'Technology', width: '20%', editable: false },
+    { field: 'vendorCompanyName', header: 'Company Name', width: '20%', editable: false },
+    { field: 'vendorName', header: 'Vendor Name', width: '20%', editable: false },
+    { field: 'vendorEmail', header: 'Vendor Email', width: '20%', editable: false },
+    { field: 'vendorMobileNumber', header: 'Vendor Mobile', width: '20%', editable: false },
+    { field: 'endClientName', header: 'End Client Name', width: '20%', editable: false },
+    { field: 'actualRate', header: 'Actual Rate', width: '20%', editable: true },
+    { field: 'submissionRate', header: 'Submissio Rate', width: '20%', editable: true },
+    { field: 'vendorStatus', header: 'Status', width: '20%', editable: true },
+        ];
 
-    this.restService.getConsultantsList().subscribe(
+    this.userRest.getConsultantsList().subscribe(
       (response) => {
-        console.log(this.states = response.submissions);
-        console.log(this.vendors = response.vendorslist);
-        console.log(this.clients = response.clients);
+       this.states = response.submissions;
+        this.vendors = response.vendorslist;
+        this.clients = response.clients;
+        this.data = response.data;
       },
       (error) => { console.log(error) }
     );
-    this.tech = [
+    this.cars = [
       { label: "Choose Technology", value: "" },
       { label: "AEM(Adobe Experience manger)", value: "AEM(Adobe Experience manger)" },
       { label: 'Android Developer', value: 'Android Developer' },
@@ -98,7 +115,7 @@ export class UserCreateComponent implements OnInit {
       { label: 'VOIP Engineer', value: "VOIP Engineer" },
       { label: 'others', value: "others" },
     ];
-    this.totalNumberOfCars = this.tech.length;
+    this.totalNumberOfCars = this.cars.length;
     this.str = '';
 
     this.registerForm = new FormGroup({
@@ -112,20 +129,20 @@ export class UserCreateComponent implements OnInit {
       'endClientLocation': new FormControl('', [Validators.required]),
       'clientId': new FormControl('', [Validators.required]),
       'scheduleDate': new FormControl(''),
-      'timezone': new FormControl(''),
+      'timezone': new FormControl('EST'),
     })
 
     this.registerContact = new FormGroup({
       'vendorcontactName': new FormControl('', [Validators.required]),
       'vendorcontactMobile': new FormControl('', [Validators.required]),
-      'vendorcontactEmail': new FormControl('', [Validators.required]),
+      'vendorcontactEmail': new FormControl('', [Validators.required, Validators.email]),
       'vendorext': new FormControl('', [Validators.required]),
     });
     this.registerVendor = new FormGroup({
       'vendorCompanyName': new FormControl('', [Validators.required]),
       'contactName': new FormControl('', [Validators.required]),
       'contactMobile': new FormControl('', [Validators.required]),
-      'contactEmail': new FormControl('', [Validators.required]),
+      'contactEmail': new FormControl('', [Validators.required, Validators.email]),
       'ext': new FormControl('', [Validators.required]),
 
     });
@@ -133,29 +150,22 @@ export class UserCreateComponent implements OnInit {
       'clientName': new FormControl('', [Validators.required]),
     });
   }
-  ConvertToInt(val) {
-    return parseFloat(val);
-  }
+
   showModalDialog() {
     this.displayModal = true;
   }
   showModalDialogClient() {
     this.displayModalClient = true;
   }
-  showCalculator() {
-    this.calculatorModal = true;
-  }
-  showCalculator1() {
-    this.calculatorModal1 = true;
-  }
+
   showModalDialog1() {
     this.registerContact.addControl('cvid', new FormControl(this.registerForm.value.vid, Validators.required));
     this.displayModal1 = true;
   }
 
   OnFocus() {
-    if (this.tech.length > this.totalNumberOfCars) {
-      this.tech.shift();
+    if (this.cars.length > this.totalNumberOfCars) {
+      this.cars.shift();
 
     }
   }
@@ -167,10 +177,10 @@ export class UserCreateComponent implements OnInit {
   test(event) {
     const charCode = event.keyCode;
     if (event.key === 'Enter') {
-      this.selectedCar = this.tech.find(car => {
+      this.selectedCar = this.cars.find(car => {
         return car.label.toLowerCase().includes(this.str.toLowerCase());
       });
-      this.tech.unshift(this.selectedCar)
+      this.cars.unshift(this.selectedCar)
       this.str = '';
     } else if (event.key === 'Backspace') {
       this.str = this.str.replace(/.$/, "");
@@ -187,7 +197,7 @@ export class UserCreateComponent implements OnInit {
     this.ctechnology = '';
 
     console.log(event.value);
-    this.restService.editConsultant(event.value).subscribe(
+    this.userRest.editConsultant(event.value).subscribe(
       (response) => {
         this.crate = response.user.rate;
         this.cemail = response.user.consultantEmail;
@@ -201,7 +211,7 @@ export class UserCreateComponent implements OnInit {
   ChangeClients(event) {
 
     //   this.clients=[];
-    /* this.restService.editVenodr(event.value).subscribe(
+    /* this.userRest.editVenodr(event.value).subscribe(
        (response) => {
          this.contacts =  response.contacts;
        },
@@ -213,7 +223,7 @@ export class UserCreateComponent implements OnInit {
     this.vmobile = '';
     this.vcname = '';
     this.contacts = [];
-    this.restService.editVenodr(event.value).subscribe(
+    this.userRest.editVenodr(event.value).subscribe(
       (response) => {
         this.contacts = response.contacts
 
@@ -227,7 +237,7 @@ export class UserCreateComponent implements OnInit {
     this.vcname = '';
     const formData = new FormData();
     formData.append("index", value);
-    this.restService.getContactDetails(formData).subscribe(
+    this.userRest.getContactDetails(formData).subscribe(
       (response) => {
         console.log(response);
         this.vmobile = response.contactDetails.contactMobile
@@ -242,7 +252,7 @@ export class UserCreateComponent implements OnInit {
     this.vcname = '';
     const formData = new FormData();
     formData.append("index", event.value);
-    this.restService.getContactDetails(formData).subscribe(
+    this.userRest.getContactDetails(formData).subscribe(
       (response) => {
         console.log(response);
         this.vmobile = response.contactDetails.contactMobile
@@ -291,7 +301,7 @@ export class UserCreateComponent implements OnInit {
   get scheduleDate() { return this.registerContact.get('scheduleDate'); }
   get timezone() { return this.registerContact.get('timezone'); }
   registerClientForm() {
-    this.restService.storeClient(this.registerClient).subscribe(
+    this.userRest.storeClient(this.registerClient).subscribe(
       response => {
         this.displayModalClient = false;
         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Client Added' });
@@ -307,12 +317,12 @@ export class UserCreateComponent implements OnInit {
   }
   registerContactForm() {
 
-    this.restService.storeContact(this.registerContact).subscribe(
+    this.userRest.storeContact(this.registerContact).subscribe(
       response => {
         this.displayModal1 = false;
         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Vendor Contact Details Added' });
         // this.selectedContacts = response.contactId;
-        this.restService.editVenodr(this.registerForm.value.vid).subscribe(
+        this.userRest.editVenodr(this.registerForm.value.vid).subscribe(
           (response2) => {
             this.contacts = response2.contacts;
             this.selectedContacts = response.contactId;
@@ -331,7 +341,7 @@ export class UserCreateComponent implements OnInit {
   registerVendorCompany() {
     console.log(this.registerVendor);
 
-    this.restService.storeVendor(this.registerVendor).subscribe(
+    this.userRest.storeVendor(this.registerVendor).subscribe(
       response => {
         console.log(response),
           console.log(response.vendorId);
@@ -339,7 +349,7 @@ export class UserCreateComponent implements OnInit {
         this.selectedVendors = response.vendorId;
         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Vendor Company Details Added' });
 
-        this.restService.getConsultantsList().subscribe(
+        this.userRest.getConsultantsList().subscribe(
           (response1) => {
             // console.log(this.states = response.submissions);
             console.log(this.vendors = response1.vendorslist);
@@ -347,7 +357,7 @@ export class UserCreateComponent implements OnInit {
           },
           (error) => { console.log(error) }
         );
-        this.restService.editVenodr(response.vendorId).subscribe(
+        this.userRest.editVenodr(response.vendorId).subscribe(
           (response2) => {
             this.contacts = response2.contacts;
             this.selectedContacts = response.contactId;
@@ -368,14 +378,22 @@ export class UserCreateComponent implements OnInit {
     console.log(this.registerForm);
 
 
+
     //formData.append('myImageToSend', this.imageFile.file);
 
 
-    this.restService.storeUser(this.registerForm).subscribe(
+    this.userRest.storeUser(this.registerForm).subscribe(
       response => {
-        console.log(response),
+        this.registerForm.reset();
           this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Submission Completed' });
-        this.router.navigate(['benchsales/list'])
+          this.data = response.data;
+          this.crate='';
+          this.cemail='';
+          this.cmobile='';
+          this.ctechnology='';
+          this.vmobile='';
+          this.vcname='';
+          // this.router.navigate(['benchsales/list'])
       },
       error => {
         this.serverErrors = error.error.errors

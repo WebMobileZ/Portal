@@ -62,7 +62,7 @@ export class UserComponent implements OnInit{
 
   updateUserDetails(){
     let id = this.updateUser.get('id').value;
-    this.http.put('http://localhost:8000/api/user-list/' + id, this.updateUser.value).subscribe(
+    this.http.put('${environment.api}/user-list/' + id, this.updateUser.value).subscribe(
       (response) => {
         console.log(response),
         this.messageService.add({severity:'success', summary:'Your Profile Updated ', detail:'successfull'})

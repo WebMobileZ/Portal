@@ -1,0 +1,68 @@
+<h4 class="remove-margin"> Hot List </h4>
+<p-table #dt [columns]="cols" scrollHeight="500px"  [scrollable]="true" [value]="products" [loading]="loading" [autoLayout]="true" [resizableColumns]="true" columnResizeMode="expand" selectionMode="multiple" [(selection)]="selectedProducts">
+  <ng-template pTemplate="caption">
+    <div class="p-d-flex">
+      <button type="button" pButton  pRipple icon="pi pi-file-o"  class="btn-length" (click)="dt.exportCSV()" pTooltip="CSV"
+      tooltipPosition="bottom"></button>
+    <!-- <button type="button" pButton pRipple icon="pi pi-file-excel" (click)="exportExcel()" class="p-button-success p-mr-2"  pTooltip="XLS" tooltipPosition="bottom"></button> -->
+    <button (click)="exportPdf()" pButton   class="btn-length" label="Export as pdf"></button>
+    <button type="button" pButton pRipple icon="pi pi-filter" (click)="dt.exportCSV({selectionOnly:true})"
+      class="p-button-info p-ml-auto" pTooltip="Selection Only" tooltipPosition="bottom"></button>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="colgroup" let-columns>
+    <colgroup>
+
+      <col *ngFor="let col of columns" >
+
+    </colgroup>
+
+  </ng-template>
+  <ng-template pTemplate="header" let-columns>
+    <tr>
+
+      <th *ngFor="let col of columns" >
+        {{col.header}}
+      </th>
+      <th>Request Resume</th>
+
+    </tr>
+    <tr>
+
+      <th>
+        <input pInputText type="text" (input)="dt.filter($event.target.value, 'consultatName', 'startsWith')"
+          placeholder="Name" class="p-column-filter">
+      </th>
+      <th>
+        <input pInputText type="text" (input)="dt.filter($event.target.value, 'technology', 'startsWith')"
+          placeholder="Technology" class="p-column-filter">
+      </th>
+      <th>
+        <input pInputText type="text" (input)="dt.filter($event.target.value, 'experience', 'startsWith')"
+          placeholder="Experience" class="p-column-filter">
+      </th>
+
+      <th>
+        <input pInputText type="text" (input)="dt.filter($event.target.value, 'state', 'startsWith')"
+          placeholder="State" class="p-column-filter">
+      </th>
+      <th>
+        <input pInputText type="text" (input)="dt.filter($event.target.value, 'willingLocation', 'startsWith')"
+          placeholder="Relocate" class="p-column-filter">
+      </th>
+      <th>
+        <input pInputText type="text" (input)="dt.filter($event.target.value, 'visaType', 'startsWith')"
+          placeholder="Visa Type" class="p-column-filter">
+      </th>
+      <th></th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-rowData let-columns="columns">
+    <tr [pSelectableRow]="rowData">
+      <td *ngFor="let col of columns">
+        {{rowData[col.field]}}
+      </td>
+      <td><a >Request Resume</a></td>
+    </tr>
+  </ng-template>
+</p-table>

@@ -1,6 +1,8 @@
-<p-table [columns]="selectedColumns" [value]="timeSheets" [loading]="loading" [paginator]="true" [rows]="10"
-  [showCurrentPageReport]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-  [rowsPerPageOptions]="[10,25,50]">
+
+
+
+<p-table #myTable [columns]="selectedColumns"  [virtualScroll]="true" [value]="timeSheets" [lazy]="true" (onLazyLoad)="loadCarsLazy($event)" [paginator]="true"
+[rows]="20" [totalRecords]="totalRecords" [loading]="loading" currentPageReportTemplate="Total {{totalRecords}} entries" [showCurrentPageReport]="true">
   <ng-template pTemplate="caption">
     <p-multiSelect [options]="scrollableCols" [(ngModel)]="selectedColumns" optionLabel="header"
       selectedItemsLabel="{0} columns selected" [style]="{minWidth: '200px'}" placeholder="Choose Columns">
@@ -13,91 +15,27 @@
         {{col.header}}
       </th>
     </tr>
+    <tr>
+      <th>
+      </th>
+      <th>
+
+        <input pInputText type="date" (input)="myTable.filter($event.target.value, 'created_at', 'startsWith')"
+        placeholder="Name" class="p-column-filter">
+      </th>
+      <th>
+        <input pInputText type="text" (input)="myTable.filter($event.target.value, 'consultatName', 'startsWith')"
+          placeholder="Name" class="p-column-filter">
+      </th>
+    </tr>
   </ng-template>
   <ng-template pTemplate="body" let-product let-columns="columns" let-rowIndex="rowIndex">
     <tr>
       <td class="counter"> {{rowIndex + 1}} </td>
+      <td > {{product.created_at | date}} </td>
       <td *ngFor="let col of columns">
         {{product[col.field]}}
       </td>
-    </tr>
-  </ng-template>
-</p-table>
-<h5>Filter Row</h5>
-<p-table #dt [value]="timeSheets" dataKey="reportId" [rows]="10" [showCurrentPageReport]="true"
-  [rowsPerPageOptions]="[10,25,50]" [loading]="loading"  [globalFilterFields]="['consultatName']"  styleClass="p-datatable-customers" [paginator]="true"
-  >
-
-  <ng-template pTemplate="header">
-    <tr>
-      <th>Consultant Name</th>
-      <th>Country</th>
-      <th>Agent</th>
-      <th>Status</th>
-
-    </tr>
-    <tr>
-      <th>
-        <p-columnFilter type="text" field="consultatName"></p-columnFilter>
-      </th>
-      <th>
-        <p-columnFilter type="email" field="consultantEmail"></p-columnFilter>
-      </th>
-      <th>
-        <p-columnFilter type="number" field="consultatMobileNumber"></p-columnFilter>
-      </th>
-      <th>
-        <p-columnFilter type="number" field="experience"></p-columnFilter>
-      </th>
-      <!-- <th>
-				<p-columnFilter field="representative" matchMode="in" [showMenu]="false">
-					<ng-template pTemplate="filter" let-value let-filter="filterCallback">
-						<p-multiSelect [ngModel]="value" [options]="representatives" placeholder="Any"
-							(onChange)="filter($event.value)" optionLabel="name">
-							<ng-template let-option pTemplate="item">
-								<div class="p-multiselect-representative-option">
-									<span class="p-ml-1">{{option.name}}</span>
-								</div>
-							</ng-template>
-						</p-multiSelect>
-					</ng-template>
-				</p-columnFilter>
-			</th>
-			<th>
-				<p-columnFilter field="status" matchMode="equals" [showMenu]="false">
-					<ng-template pTemplate="filter" let-value let-filter="filterCallback">
-						<p-dropdown [ngModel]="value" [options]="statuses" (onChange)="filter($event.value)"
-							placeholder="Any" [showClear]="true">
-							<ng-template let-option pTemplate="item">
-								<span [class]="'customer-badge status-' + option.value">{{option.label}}</span>
-							</ng-template>
-						</p-dropdown>
-					</ng-template>
-				</p-columnFilter>
-			</th>-->
-
-    </tr>
-  </ng-template>
-  <ng-template pTemplate="body" let-customer>
-    <tr>
-      <td>
-        {{customer.consultatName}}
-      </td>
-      <td>
-        <span class="image-text">{{customer.consultantEmail}}</span>
-      </td>
-      <td>
-        <span class="image-text">{{customer.consultatMobileNumber}}</span>
-      </td>
-      <td>
-        <span [class]="'customer-badge status-' + customer.reportStatus">{{customer.experience}}</span>
-      </td>
-
-    </tr>
-  </ng-template>
-  <ng-template pTemplate="emptymessage">
-    <tr>
-      <td colspan="5">No Cosultants found.</td>
     </tr>
   </ng-template>
 </p-table>

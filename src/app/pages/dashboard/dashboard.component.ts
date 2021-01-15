@@ -6,5 +6,13 @@ import { Component, OnInit } from '@angular/core';
 })
 
 export class DashboardComponent implements OnInit{
-  ngOnInit() {}
+  menuexpectedrole:string;
+
+  ngOnInit() {
+
+    this.menuexpectedrole = localStorage.getItem('role');
+    console.log(this.menuexpectedrole)
+
+  }
+
 }

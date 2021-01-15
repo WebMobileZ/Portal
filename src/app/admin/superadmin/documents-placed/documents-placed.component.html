@@ -1,0 +1,259 @@
+<h4 class="remove-margin">Placed Consultant Documents </h4>
+
+<p-table #dt [columns]="scrollableCols" [value]="timeSheets" [scrollable]="true" [filterDelay]="0"
+  [globalFilterFields]="['consultatName']" [loading]="loading" [resizableColumns]="true" columnResizeMode="expand"
+  [reorderableColumns]="true" autoLayout="true" (onRowSelect)="onRowSelected($event)" dataKey="reportId" editMode="row"
+  [paginator]="true" [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [scrollable]="true">
+  <ng-template pTemplate="colgroup" let-columns>
+    <colgroup>
+      <col style="width:160px">
+      <col style="width:60px">
+      <col style="width:100px">
+      <col *ngFor="let col of columns" style="width:200px">
+      <col style="width:200px">
+      <col style="width:200px">
+    </colgroup>
+  </ng-template>
+  <ng-template pTemplate="header" let-columns>
+    <tr>
+      <th>Submissions</th>
+      <th>Days in</th>
+      <th>Docs</th>
+      <th>Consultant Name</th>
+      <th *ngFor="let col of columns" [ngStyle]="{'width': col.width}">
+        {{col.header}}
+      </th>
+
+    </tr>
+    <tr>
+      <th></th>
+      <th> Bench  </th>
+      <th> </th>
+      <th> <input pInputText type="text" (input)="dt.filter($event.target.value, 'consultatName', 'contains')"
+          placeholder="Name" class="p-column-filter">
+      </th>
+      <th> <input pInputText type="text" (input)="dt.filter($event.target.value, 'consultantEmail', 'startsWith')"
+          placeholder="Email" class="p-column-filter"></th>
+      <th>
+        <input pInputText type="text" (input)="dt.filter($event.target.value, 'consultatMobileNumber', 'startsWith')"
+          placeholder="Phone" class="p-column-filter">
+      </th>
+      <th>
+        <input pInputText type="text" (input)="dt.filter($event.target.value, 'experience', 'startsWith')"
+          placeholder="exp" class="p-column-filter">
+      </th>
+      <th>
+        <input pInputText type="text" (input)="dt.filter($event.target.value, 'rate', 'startsWith')" placeholder="Rate"
+          class="p-column-filter">
+      </th>
+      <th>
+        <input pInputText type="text" (input)="dt.filter($event.target.value, 'technology', 'contains')"
+          placeholder="Technology" class="p-column-filter">
+      </th>
+      <th>
+        <input pInputText type="text" (input)="dt.filter($event.target.value, 'visaType', 'contains')"
+          placeholder="Visa Type" class="p-column-filter">
+      </th>
+      <th>
+        <input pInputText type="text" (input)="dt.filter($event.target.value, 'city', 'contains')" placeholder="City"
+          class="p-column-filter">
+      </th>
+      <th>
+        <input pInputText type="text" (input)="dt.filter($event.target.value, 'state', 'contains')"
+          placeholder="State" class="p-column-filter">
+      </th>
+      <th>
+        <input pInputText type="text" (input)="dt.filter($event.target.value, 'willingLocation', 'startsWith')"
+          placeholder="Relocate" class="p-column-filter">
+      </th>
+      <th>
+        <input pInputText type="text" (input)="dt.filter($event.target.value, 'documentsCollected', 'contains')"
+          placeholder="Document Collected" class="p-column-filter">
+      </th>
+
+      <th>
+        <input pInputText type="text" (input)="dt.filter($event.target.value, 'ssn', 'contains')" placeholder="SSN"
+          class="p-column-filter">
+      </th>
+
+
+
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-rowData let-columns="columns" let-editing="editing" let-ri="rowIndex">
+    <tr [pEditableRow]="rowData">
+
+      <td class="text-center">
+
+        <span *ngIf="rowData.priority=='High'">
+          <button pButton pRipple data-toggle="tooltip" title="{{rowData.priority}} Priority" icon="pi pi-star"
+            class="btn-length p-button-rounded p-button-warning"
+            style="color:Green;background:#fff;border: none;"></button>
+        </span>
+        <span *ngIf="rowData.priority=='Medium'">
+          <button pButton pRipple data-toggle="tooltip" title="{{rowData.priority}} Priority" icon="pi pi-star"
+            class="btn-length p-button-rounded p-button-warning"
+            style="color:#ffc107;background:#fff;border: none;"></button>
+        </span>
+        <span *ngIf="rowData.priority=='Low'">
+          <button pButton pRipple data-toggle="tooltip" title="{{rowData.priority}} Priority" icon="pi pi-star"
+            class="btn-length p-button-rounded p-button-warning"
+            style="color:red;background:#fff;border: none;"></button>
+        </span>
+        <span>
+          <a class="btn-length" (click)="showModalDialogVendor(rowData)" *ngIf="rowData.vendor_add.length">
+            <img src="./assets/img/eye.png"></a>
+        </span>
+
+        <a (click)="showModalDialog1(rowData.note)" tabindex="0" data-toggle="popover" data-trigger="focus" title=""
+          data-content="Srija note" data-original-title="Note"><img src="./assets/img/sticky.png"></a>
+        <br>
+        <button data-toggle="tooltip" title="{{rowData.vendor_add.length}} Submissions" class="btn-length"
+          style="color:white;background:#007bff;border:none">{{rowData.vendor_add.length}}</button>
+
+        <button data-toggle="tooltip" title="{{rowData.sclients}} Submitted to Client" class="btn-length"
+          style="color:white;background:purple;border:none">{{rowData.sclients}}</button>
+        <button data-toggle="tooltip" title="{{rowData.interviews}} Interview Schedule"
+          style="color:white;background:green;border:none">{{rowData.interviews}}</button>
+
+        <!-- <button pButton pRipple data-toggle="tooltip" title="Note" icon="pi pi-bookmark"
+          (click)="showModalDialog1(rowData.note)" class="p-button-outlined p-button-secondary"
+          style="color:#007bff;background:#fff;border: none;"></button> -->
+
+      </td>
+      <td style="color:#17a2b8;">
+        {{calculateDiff(rowData.created_at)}}
+
+      </td>
+      <td>
+        <a href="https://portal.webmobilez.com/storage/app/uploads/resume/{{rowData.resume}}" download
+          *ngIf="rowData.resume"><img src="./assets/img/word.png"></a>
+        <a href="https://portal.webmobilez.com/storage/app/uploads/otherDocument/{{rowData.otherDocument}}" download
+          *ngIf="rowData.otherDocument"><img src="./assets/img/idcard.png"></a>
+        <a href="https://portal.webmobilez.com/storage/app/uploads/workauthorization/{{rowData.workAuthorization}}"
+          download *ngIf="rowData.workAuthorization"><img src="./assets/img/suitcase.png"></a>
+        <br>
+        <button pButton pRipple data-toggle="tooltip" title="Status Change" (click)="showModalDialog(rowData)"
+          class="p-button-outlined p-button-secondary" label="Write Note"
+          style="color:#007bff;background:#fff;border: none;"></button>
+      </td>
+      <td>
+        {{rowData.consultatName }}<br>
+        {{rowData.created_at | date }}
+      </td>
+      <td *ngFor=" let col of columns">
+        <div *ngIf="!col.editable">
+          {{rowData|field:col}}
+        </div>
+
+        <p-cellEditor *ngIf="col.editable">
+          <ng-template pTemplate="input">
+            <div *ngIf="rowData|field:col as variable">
+              <input pInputText type="text" [(ngModel)]="variable" required>
+            </div>
+          </ng-template>
+          <ng-template pTemplate="output">
+
+            {{rowData|field:col}}
+          </ng-template>
+        </p-cellEditor>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
+<p-confirmDialog key="confirm-drop-database" header="Confirmation" acceptLabel="Yes" rejectLabel="No"
+  [(visible)]="confirmDropDatabaseDialogVisible"></p-confirmDialog>
+<p-dialog header="Status Change" [(visible)]="displayModal" [modal]="true" [style]="{width: '50vw'}"
+  [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+  <form [formGroup]="registerVendor" (ngSubmit)="registerUser(submissionId)">
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="form-group">
+          <label for="priority">Priority:</label>
+          <select class="form-control" formControlName="priority">
+            <option value="">--select--</option>
+            <option value="High">High</option>
+            <option value="Medium">Medium</option>
+            <option value="Low">Low</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="form-group">
+          <label for="wStatus">Status of Consultant:</label>
+          <select class="form-control" formControlName="wStatus">
+            <option value="">--select--</option>
+            <option value="A">Active</option>
+            <option value="R">Removed From Webmobilez</option>
+            <option value="S">selected from WebmobileZ</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-12">
+      <div class="form-group">
+        <label for="notepop">Note:</label>
+        <textarea class="form-control" formControlName="note"></textarea>
+
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+  <ng-template pTemplate="footer">
+    <p-button icon="pi pi-check" (click)="displayModal=true" label="Yes" class="p-button-text"></p-button>
+    <p-button icon="pi pi-times" (click)="displayModal=false" label="No"></p-button>
+  </ng-template>
+</p-dialog>
+<p-dialog header="Note" [(visible)]="displayModal1" [modal]="true" [style]="{width: '50vw'}" [baseZIndex]="10000"
+  [draggable]="false" [resizable]="false">
+
+  <p>{{valuenote}}</p>
+  <ng-template pTemplate="footer">
+    <p-button icon="pi pi-check" (click)="displayModal1=true" label="Yes" class="p-button-text"></p-button>
+    <p-button icon="pi pi-times" (click)="displayModal1=false" label="No"></p-button>
+  </ng-template>
+</p-dialog>
+<p-dialog header="View Vendors" [(visible)]="displayModalVendor" [modal]="true" [style]="{width: '50vw'}"
+  [baseZIndex]="10000" [draggable]="false" [resizable]="false">
+
+  <p>Vendors</p>
+  <ng-template pTemplate="footer">
+    <p-button icon="pi pi-check" (click)="displayModal1=true" label="Yes" class="p-button-text"></p-button>
+    <p-button icon="pi pi-times" (click)="displayModal1=false" label="No"></p-button>
+  </ng-template>
+</p-dialog>
+
+<p-dialog [style]="{width: '75vw'}" position="top" [(visible)]="showDialog" header="View Vendors Details"
+  [closable]="true" [resizable]="true">
+  <div class="flexcolumn container">
+    <p-table class="flexcolumn" [value]="data" [scrollable]="true" [responsive]="true">
+      <ng-template pTemplate="header">
+        <tr>
+          <th><span>Created By</span></th>
+          <th><span>Vendor Company</span></th>
+          <th><span>Vendor Contact Name</span></th>
+
+          <th><span>End Client</span></th>
+          <th><span>Submission Rate</span></th>
+          <th><span>Status</span></th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-record>
+        <tr>
+          <td><span *ngIf="record.user_details">{{record.user_details.name}}</span></td>
+          <td>{{record.vendorCompanyName}}</td>
+          <td>{{record.vendorName}}</td>
+          <td>{{record.endClientName}}</td>
+          <td>{{record.submissionRate}}</td>
+          <td>{{record.vendorStatus}}</td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="summary">
+        {{data.length}} Records
+      </ng-template>
+    </p-table>
+  </div>
+  <p-footer>
+    <button type="button" pButton (click)="showDialog=false" label="Close"></button>
+  </p-footer>
+</p-dialog>

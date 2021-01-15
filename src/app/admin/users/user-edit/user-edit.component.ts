@@ -47,7 +47,7 @@ export class UserEditComponent implements OnInit {
     this.userRest.updateUser(this.updateUser,id).subscribe(
       (response) => {
         console.log(response),
-        this.router.navigate(['users/list'])
+        this.router.navigate(['superadmin/userlist'])
       },
       error =>{
         this.serverErrors = error.error.errors

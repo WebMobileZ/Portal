@@ -1,0 +1,321 @@
+<h4 class="remove-margin"> Jobs List <a routerLink="/jobs/create" class="btn btn-primary">
+    Add Job Requirment
+  </a></h4>
+
+
+<!--
+<p-table #dt [responsive]="true" [value]="timeSheets" [frozenColumns]="frozenCols" [scrollable]="true"
+  scrollHeight="200px" appendTo="body" filterMatchMode="equals" columnResizeMode="expand" dataKey="id" [rows]="10"
+  [showCurrentPageReport]="true" tableStyleClass="fixtable" [rowsPerPageOptions]="[5,10,20,30]" [loading]="loading"
+  styleClass="p-datatable-customers" [paginator]="true" [filterDelay]="0"
+  [globalFilterFields]="['created_at','consultatName','consultantEmail','consultatMobileNumber','experience','rate','reportStatus']">
+
+  <ng-template pTemplate="header">
+    <tr>
+
+      <th>Consultant Name</th>
+      <th>Created At</th>
+      <th>Email</th>
+      <th>Phone number</th>
+
+      <th>Exp </th>
+      <th>Rate</th>
+      <th>Status</th>
+      <th>Action</th>
+
+    </tr>
+    <tr>
+
+
+      <th>
+        <input pInputText type="text" (input)="dt.filter($event.target.value, 'consultatName', 'startsWith')"
+          placeholder="Name" class="p-column-filter">
+      </th>
+      <th>
+        <p-calendar (onSelect)="onDateSelect($event)" (onClearClick)="dt.filter('', 'created_at', 'equals')"
+          [showButtonBar]="true" [style]="{'width':'300px'}" styleClass="p-column-filter" placeholder="Date"
+          [readonlyInput]="true" dateFormat="yy-mm-dd"></p-calendar>
+      </th>
+      <th> <input pInputText type="text" (input)="dt.filter($event.target.value, 'consultantEmail', 'startsWith')"
+          placeholder="Email" class="p-column-filter"></th>
+      <th>
+        <input pInputText type="text" (input)="dt.filter($event.target.value, 'consultatMobileNumber', 'startsWith')"
+          placeholder="Phone" class="p-column-filter">
+      </th>
+
+      <th>
+        <input pInputText type="text" (input)="dt.filter($event.target.value, 'experience', 'startsWith')"
+          placeholder="exp" class="p-column-filter">
+      </th>
+      <th>
+        <input pInputText type="text" (input)="dt.filter($event.target.value, 'rate', 'startsWith')" placeholder="Rate"
+          class="p-column-filter">
+      </th>
+      <th>
+        <input pInputText type="text" (input)="dt.filter($event.target.value, 'reportStatus', 'startsWith')"
+          placeholder="Status" class="p-column-filter">
+      </th>
+
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-customer>
+    <tr>
+
+
+      <td>
+        {{customer.consultatName}}
+      </td>
+      <td>
+        {{customer.created_at | date}}
+      </td>
+      <td>
+        {{customer.consultantEmail}}
+      </td>
+      <td>
+        {{customer.consultatMobileNumber}}
+      </td>
+
+      <td>
+        {{customer.experience}}
+      </td>
+      <td>
+        {{customer.rate}}
+      </td>
+      <td>
+        {{customer.reportStatus}}
+      </td>
+      <td>
+        -
+      </td>
+
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="emptymessage">
+    <tr>
+      <td colspan="6">No Consultants found.</td>
+    </tr>
+  </ng-template>
+</p-table> -->
+<!--
+<div class="row">
+  <div class="col-md-12">
+          <h4 class="remove-margin"> Timesheet List </h4>
+    <div class="card">
+
+      <div class="card-body">
+        <p-table #dt [value]="timeSheets" dataKey="id"
+        [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,20]" [loading]="loading" styleClass="p-datatable-customers"
+        [paginator]="false"
+        [filterDelay]="0" [globalFilterFields]="['fromDate','duration','assignment','serviceCode']">
+
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Employee</th>
+                <th>Date</th>
+                <th>Duration</th>
+                <th>Assignment</th>
+                <th>Service Code</th>
+            </tr>
+
+        </ng-template>
+        <ng-template pTemplate="body" let-customer>
+            <tr>
+              <td>
+                {{customer.user_details.name}}
+              </td>
+                <td>
+                    {{customer.fromDate | date}}
+                </td>
+                <td>
+                   {{customer.duration}}
+                </td>
+                <td>
+                  {{customer.assignment}}
+               </td>
+               <td>
+                {{customer.serviceCode}}
+             </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+            <tr>
+                <td colspan="6">No Users found.</td>
+            </tr>
+        </ng-template>
+    </p-table>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<p-inplace>
+  <ng-template pTemplate="display">
+    Click to Edit
+  </ng-template>
+  <ng-template pTemplate="content">
+    <input type="text" value="PrimeNG" pInputText>
+  </ng-template>
+</p-inplace>
+
+<p-table #dt [value]="timeSheets" dataKey="id"
+        [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]" [loading]="loading" styleClass="p-datatable-customers"
+        [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        [filterDelay]="0" [globalFilterFields]="['consultatName']">
+        <ng-template pTemplate="caption">
+            <div class="table-header">
+                List of Consultants
+                <span class="p-input-icon-left">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Global Search" />
+                </span>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Name</th>
+
+            </tr>
+            <tr>
+                <th>
+                    <input pInputText type="text" (input)="dt.filter($event.target.value, 'consultatName', 'startsWith')" placeholder="Search by Name" class="p-column-filter">
+                </th>
+
+
+
+
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-customer>
+            <tr>
+                <td>
+                    {{customer.consultatName}}
+                </td>
+
+
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+            <tr>
+                <td colspan="6">No Consultants found.</td>
+            </tr>
+        </ng-template>
+    </p-table>
+ {{rowData|field:col}}
+  -->
+
+<p-table #dt [columns]="scrollableCols" [autoLayout]="true" [value]="timeSheets" [scrollable]="true" [filterDelay]="0"
+  [globalFilterFields]="['consultatName']" [resizableColumns]="true" columnResizeMode="expand"
+  [reorderableColumns]="true" autoLayout="true" dataKey="reportId" editMode="row" [paginator]="true" [rows]="10"
+  [showCurrentPageReport]="true"
+  [rowsPerPageOptions]="[10,25,50]">
+  <ng-template pTemplate="colgroup" let-columns>
+    <colgroup>
+
+      <col *ngFor="let col of columns" style="width:200px">
+      <col style="width:200px">
+      <col style="width:200px">
+    </colgroup>
+  </ng-template>
+  <ng-template pTemplate="header" let-columns>
+    <tr>
+      <th>Action</th>
+      <th *ngFor="let col of columns" [ngStyle]="{'width': col.width}">
+        {{col.header}}
+      </th>
+    </tr>
+    <tr>
+
+      <th>
+
+      </th>
+      <th>
+
+      </th>
+      <th>
+        <input pInputText type="text" (input)="dt.filter($event.target.value, 'jobTitle', 'startsWith')"
+          placeholder="Title" class="p-column-filter">
+      </th>
+
+      <th>
+        <input pInputText type="text" (input)="dt.filter($event.target.value, 'jobTechnology', 'startsWith')"
+          placeholder="Technology" class="p-column-filter">
+      </th>
+      <th>
+        <input pInputText type="text" (input)="dt.filter($event.target.value, 'jobExperience', 'startsWith')"
+          placeholder="Experience" class="p-column-filter">
+      </th>
+      <th>
+        <input pInputText type="text" (input)="dt.filter($event.target.value, 'jobLocation', 'startsWith')"
+          placeholder="Location" class="p-column-filter">
+      </th>
+      <th>
+        <input pInputText type="text" (input)="dt.filter($event.target.value, 'jobVisaType', 'startsWith')"
+          placeholder="VisaType" class="p-column-filter">
+      </th>
+      <th>
+        <input pInputText type="text" (input)="dt.filter($event.target.value, 'jobStatus', 'startsWith')"
+          placeholder="Status" class="p-column-filter">
+      </th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-rowData let-columns="columns" let-editing="editing" let-ri="rowIndex">
+
+    <tr [pEditableRow]="rowData" [ngStyle]="{'background-color':getColor(rowData.reportStatus,rowData.adminStatus)}">
+      <td style="text-align:center">
+        <a (click)="editUser(rowData.jobId)" class="btn btn-warning btn-sm">Edit</a>
+        <a (click)="showModalDialog(rowData)" class="btn btn-primary btn-sm">View</a>
+      </td>
+      <td *ngFor="let col of columns">
+        <div *ngIf="!col.editable">
+          {{rowData|field:col}}
+        </div>
+        <p-cellEditor *ngIf="col.editable">
+          <ng-template pTemplate="input">
+            <div *ngIf="rowData|field:col as variable">
+              <input pInputText type="text" [(ngModel)]="variable" required>
+            </div>
+          </ng-template>
+          <ng-template pTemplate="output">
+            {{rowData|field:col}}
+          </ng-template>
+        </p-cellEditor>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
+<p-confirmDialog key="confirm-drop-database" header="Confirmation" acceptLabel="Yes" rejectLabel="No"
+  [(visible)]="confirmDropDatabaseDialogVisible"></p-confirmDialog>
+<p-dialog header="View Job Details" [(visible)]="displayModal" [modal]="true" [style]="{width: '75vw'}"
+  [baseZIndex]="10000" [draggable]="false" [resizable]="true">
+
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="form-group">
+        <label>Job Title :{{jobTitle}}</label><br>
+        <label>Job Location : {{jobLocation}}</label><br>
+        <label>Client : {{client}}</label><br>
+        <label>Duration : {{duration}} Years</label><br>
+        <label>Work Type : {{workType}}</label><br>
+      </div>
+    </div>
+    <div class="col-md-12">
+      <div class="form-group">
+        <label>Description:</label><br>
+        <div [innerHTML]="jobDescription"></div>
+      </div>
+    </div>
+    <div class="col-md-12">
+      <div class="form-group">
+        <label>Responsibilities:</label><br>
+        <div [innerHTML]="jobResponsibility"></div>
+      </div>
+    </div>
+  </div>
+  <ng-template pTemplate="footer">
+    <p-button icon="pi pi-check" (click)="displayModal=true" label="Yes" class="p-button-text"></p-button>
+    <p-button icon="pi pi-times" (click)="displayModal=false" label="No"></p-button>
+  </ng-template>
+</p-dialog>

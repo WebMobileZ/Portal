@@ -1,0 +1,94 @@
+<h4 class="remove-margin"></h4>
+
+<div class="container" >
+
+  <div class="row row-cols-1 row-cols-sm-4 row-cols-md-4 g-3 p-3">
+    <div class="col">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-body">
+
+                <form id="userForm" method="post" name="percent_off">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text">$</span>
+                        </div>
+                        <input type="number" name="list" value="52" class="form-control"
+                          aria-label="Amount (to the nearest dollar)" [(ngModel)]="num1" >
+                      </div>
+
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <label class="control-label required" for="percent_off_p">Percent Off</label>
+                      <div class="input-group mb-3">
+
+                        <div class="input-group-prepend">
+                          <span class="input-group-text" id="basic-addon1">%</span>
+                        </div>
+                        <select class="form-control" name="disc" [(ngModel)]="num2">
+                          <option value="10">10</option>
+                          <option value="15">15</option>
+                          <option value="20">20</option>
+                          <option value="25">25</option>
+                          <option value="30">30</option>
+                        </select>
+                      </div>
+
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-4">
+                      <div class="form-group">
+                        <br>
+                        <button type="submit" id="percent_off_save" name="percent_off[save]"
+                          class="button btn-lg btn btn-primary btn-block btn">Calculate Percent Off</button>
+                      </div>
+
+                    </div>
+                  </div>
+                </form>
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="form-group">
+                      <div id="result" style="height: auto !important;">
+                        <label class="control-label required" for="percent_off_p">Result :</label> {{ ConvertToInt(num1)  -( ConvertToInt(num1)*ConvertToInt(num2)/100)  }}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+
+
+
+  </div>
+  <div class="col">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8">
+          <div class="card">
+            <div class="card-body">
+  <ng-calculator></ng-calculator>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</div>

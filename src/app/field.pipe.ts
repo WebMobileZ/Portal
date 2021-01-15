@@ -13,6 +13,7 @@ export class FieldPipe implements PipeTransform {
     let result = value;
     // addressModel.City.Name
     column.field.split(".").forEach(f => (result = result[f]));
+
     return result?result:'-';
   }
 }

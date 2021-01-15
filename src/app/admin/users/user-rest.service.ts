@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/internal/Observable';
-
+import {environment} from "../../../environments/environment";
 @Injectable({
   providedIn: 'root'
 })
@@ -10,22 +10,22 @@ export class UserRestService {
   constructor(private http: HttpClient) { }
 
   getUsers(): Observable<any> {
-    return this.http.get('http://localhost:8000/api/user-list');
+    return this.http.get(`${environment.api}/user-list`);
   }
 
   editUser(id): Observable<any> {
-    return this.http.get('http://localhost:8000/api/user-list/' + id);
+    return this.http.get(`${environment.api}/user-list/` + id);
   }
 
   updateUser(form,id): Observable<any> {
-    return this.http.put('http://localhost:8000/api/user-list/' + id, form.value);
+    return this.http.put(`${environment.api}/user-list/` + id, form.value);
   }
 
   storeUser(form): Observable<any> {
-    return this.http.post('http://localhost:8000/api/user-list',form.value);
+    return this.http.post(`${environment.api}/user-list`,form.value);
   }
 
   deleteUser(id): Observable<any> {
-    return this.http.delete('http://localhost:8000/api/user-list/' + id);
+    return this.http.delete(`${environment.api}/user-list/` + id);
   }
 }

@@ -1,0 +1,254 @@
+<p-toast position="bottom-right"></p-toast>
+<div class="row">
+  <div class="col-md-12">
+    <h4 class="remove-margin">Edit Job Requirement </h4>
+    <div class="card">
+      <div class="card-header">
+        <!-- <h5 class="card-title">Edit Profile</h5> -->
+
+
+      </div>
+      <div class="card-body">
+        <form [formGroup]="registerForm" (ngSubmit)="updateUserDetails()" enctype="multipart/form-data">
+          <div class="row">
+            <div class="col-md-3">
+              <div class="form-group">
+
+                <label>Job Title:</label>
+                <input type="text" formControlName="jobTitle" class="form-control" placeholder="Job Title">
+                <div *ngIf="jobTitle.invalid && (jobTitle.dirty || jobTitle.touched)"
+                  class="form-text text-muted">
+                  <div *ngIf="jobTitle.errors?.required">
+                    Title is required.
+                  </div>
+                  <div *ngIf="jobTitle.errors?.minlength">
+                    Title must be at least 2 characters long.
+                  </div>
+                </div>
+                <small class="form-text text-muted" *ngIf="serverErrors">{{ serverErrors.jobTitle }}</small>
+
+              </div>
+            </div>
+
+            <div class="col-md-3">
+              <div class="form-group">
+                <label>Experience:</label>
+                <input type="number" formControlName="jobExperience" class="form-control" placeholder="Exp"
+                  required>
+                <div *ngIf="jobExperience.invalid && (jobExperience.dirty || jobExperience.touched)"
+                  class="form-text text-muted">
+                  <div *ngIf="jobExperience.errors?.required">
+                    Experience is required.
+                  </div>
+                </div>
+                <small class="form-text text-muted" *ngIf="serverErrors">{{ serverErrors.jobExperience }}</small>
+
+              </div>
+            </div>
+            <div class="col-md-3">
+              <label>Technology</label>
+              <p-dropdown #dd [options]="cars" [(ngModel)]="selectedCar" formControlName="jobTechnology"
+                [style]="{'width':'100%'}" scrollHeight="400px" filter="true" filterBy="value,label"
+                resetFilterOnHide="true" (onFocus)="OnFocus()" (keydown)="test($event)">
+              </p-dropdown>
+              <div *ngIf="jobTechnology.invalid && (jobTechnology.dirty || jobTechnology.touched)" class="form-text text-muted">
+                <div *ngIf="jobTechnology.errors?.required">
+                  Technology is required.
+                </div>
+
+              </div>
+              <small class="form-text text-muted" *ngIf="serverErrors">{{ serverErrors.jobTechnology }}</small>
+             </div>
+             <div class="col-md-3">
+              <div class="form-group">
+                <label>Visa Type:</label>
+                <select class="form-control" formControlName="jobVisaType">
+                  <option value="null" disabled>Choose visaType</option>
+                  <option value="H4 EAD">H4 EAD
+                  </option>
+                  <option value="H1B-Transfer">H1B-Transfer
+                  </option>
+                  <option value="CPT">CPT
+                  </option>
+                  <option value="OPT">OPT
+                  </option>
+                  <option value="H1-B">H1-B
+                  </option>
+                  <option value="GC-EAD">GC-EAD
+                  </option>
+                  <option value="Green Card">Green Card
+                  </option>
+                  <option value="US Citizen">US Citizen
+                  </option>
+
+                </select>
+                <div *ngIf="jobVisaType.invalid && (jobVisaType.dirty || jobVisaType.touched)" class="form-text text-muted">
+                  <div *ngIf="jobVisaType.errors?.required">
+                    Visa Type is required.
+                  </div>
+
+                </div>
+                <small class="form-text text-muted" *ngIf="serverErrors">{{ serverErrors.jobVisaType }}</small>
+              </div>
+            </div>
+
+          </div>
+          <div class="row">
+
+            <div class="col-md-3">
+              <div class="form-group">
+                <label>Work Type:</label>
+                <select class="form-control" formControlName="workType">
+                  <option value="null" disabled>Choose Type</option>
+                  <option value="Remote">Remote
+                  </option>
+                  <option value="In person">In person
+                  </option>
+                </select>
+                <div *ngIf="workType.invalid && (workType.dirty || workType.touched)" class="form-text text-muted">
+                  <div *ngIf="workType.errors?.required">
+                    Work Type is required.
+                  </div>
+
+                </div>
+                <small class="form-text text-muted" *ngIf="serverErrors">{{ serverErrors.workType }}</small>
+              </div>
+            </div>
+            <div class="col-md-1">
+              <div class="form-group">
+                <label>Rate:</label>
+                <input type="number" formControlName="rate" class="form-control" placeholder="Rate"
+                required>
+                <!-- <input type="text" formControlName="state" class="form-control" placeholder="State" required> -->
+                <div *ngIf="rate.invalid && (mainRequirement.dirty || rate.touched)" class="form-text text-muted">
+                  <div *ngIf="rate.errors?.required">
+                    Rate is required.
+                  </div>
+
+                </div>
+                <small class="form-text text-muted" *ngIf="serverErrors">{{ serverErrors.rate }}</small>
+
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="form-group">
+                <label>Duration (Years):</label>
+                <input type="number" formControlName="duration" class="form-control" placeholder="Duration"
+                required>
+                <!-- <input type="text" formControlName="state" class="form-control" placeholder="State" required> -->
+                <div *ngIf="duration.invalid && (duration.dirty || duration.touched)" class="form-text text-muted">
+                  <div *ngIf="duration.errors?.required">
+                    Duration is required.
+                  </div>
+
+                </div>
+                <small class="form-text text-muted" *ngIf="serverErrors">{{ serverErrors.duration }}</small>
+
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="form-group">
+                <label>Client:</label>
+                <input type="text" formControlName="client" class="form-control" placeholder="Client"
+                required>
+                <!-- <input type="text" formControlName="state" class="form-control" placeholder="State" required> -->
+                <div *ngIf="client.invalid && (client.dirty || client.touched)" class="form-text text-muted">
+                  <div *ngIf="client.errors?.required">
+                    Client is required.
+                  </div>
+
+                </div>
+                <small class="form-text text-muted" *ngIf="serverErrors">{{ serverErrors.client }}</small>
+
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="form-group">
+                <label>Main Requirement:</label>
+                <input type="text" formControlName="mainRequirement" class="form-control" placeholder="Main Requirement"
+                required>
+                <!-- <input type="text" formControlName="state" class="form-control" placeholder="State" required> -->
+                <div *ngIf="mainRequirement.invalid && (mainRequirement.dirty || mainRequirement.touched)" class="form-text text-muted">
+                  <div *ngIf="mainRequirement.errors?.required">
+                    Main Requirement is required.
+                  </div>
+
+                </div>
+                <small class="form-text text-muted" *ngIf="serverErrors">{{ serverErrors.mainRequirement }}</small>
+
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="form-group">
+                <label>Location:</label>
+                <p-dropdown #dd [options]="states" [(ngModel)]="selectedStates" formControlName="jobLocation"
+                  [style]="{'width':'100%'}" scrollHeight="400px" filter="true" filterBy="value,label"
+                  resetFilterOnHide="true" (onFocus)="OnFocus()" (keydown)="statesUi($event)">
+                </p-dropdown>
+                <!-- <input type="text" formControlName="state" class="form-control" placeholder="State" required> -->
+                <div *ngIf="jobLocation.invalid && (jobLocation.dirty || jobLocation.touched)" class="form-text text-muted">
+                  <div *ngIf="jobLocation.errors?.required">
+                    Location is required.
+                  </div>
+
+                </div>
+                <small class="form-text text-muted" *ngIf="serverErrors">{{ serverErrors.jobLocation }}</small>
+
+              </div>
+            </div>
+
+            <div class="col-md-2">
+              <div class="form-group">
+                <label>Status</label>
+                <select class="form-control" formControlName="jobStatus">
+                  <option value="null">--select--</option>
+                  <option value="A">Active</option>
+                  <option value="I">InActive</option>
+                </select>
+                <div *ngIf="jobStatus.invalid && (jobStatus.dirty || jobStatus.touched)"
+                  class="form-text text-muted">
+                  <div *ngIf="jobStatus.errors?.required">
+                    Status is required.
+                  </div>
+
+                </div>
+                <small class="form-text text-muted" *ngIf="serverErrors">{{ serverErrors.jobStatus }}</small>
+
+              </div>
+            </div>
+
+          </div>
+
+
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label>Job Description</label>
+                <angular-editor formControlName="jobDescription" [config]="config"></angular-editor>
+
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label>Job Responsibilities:</label>
+                <angular-editor formControlName="jobResponsibility" [config]="config"></angular-editor>
+
+              </div>
+            </div>
+          </div>
+
+
+          <div class="row">
+            <div class="update ml-auto mr-auto">
+              <button type="submit" class="btn btn-primary btn-round" [disabled]="!registerForm.valid">Update
+                Job</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

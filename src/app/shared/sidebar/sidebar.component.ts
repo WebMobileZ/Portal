@@ -3,7 +3,8 @@ import { Component, OnInit, ViewChild, ElementRef, Renderer2 } from '@angular/co
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { CommonAuthService } from 'app/auth/common-auth.service';
-
+import { MenuItem } from 'primeng/api';
+import { FormGroup, FormControlName, Validators, FormControl } from '@angular/forms';
 export interface RouteInfo {
   path: string;
   title: string;
@@ -20,51 +21,20 @@ export const ROUTES: RouteInfo[] = [
   { path: '/profile', title: 'Your Profile', icon: 'nc-single-02', class: '', childMenu: null },
 
 ];
-export const HeadHunterROUTES: RouteInfo[] = [
-  {
-    path: '/dashboard', title: 'Dashboard', icon: 'nc-bank', class: '',
-    childMenu: null
-  },
-  { path: '/huntersconsultants/list', title: 'Consultants', icon: 'nc-calendar-60', class: '', childMenu: null },
-  { path: '/hotlist/list', title: 'Hot List', icon: 'nc-single-02', class: '', childMenu: null },
-  { path: '/profile', title: 'Your Profile', icon: 'nc-single-02', class: '', childMenu: null },
 
-];
 export const RecruitersROUTES: RouteInfo[] = [
 
-  { path: '/recruiters/list', title: 'Consultant Submissions ', icon: 'nc-single-02', class: '', childMenu: null },
+  { path: '/recruiters/list', title: 'Submissions ', icon: 'nc-single-02', class: '', childMenu: null },
 
-  { path: '/consultantdocuments/list', title: 'Documents', icon: 'nc-single-02', class: '', childMenu: null },
+  { path: '/consultantdocuments/list', title: 'Employee Documents', icon: 'nc-single-02', class: '', childMenu: null },
   { path: '/hotlist/list', title: 'Hot List', icon: 'nc-single-02', class: '', childMenu: null },
   { path: '/profile', title: 'Your Profile', icon: 'nc-single-02', class: '', childMenu: null },
 ];
-export const BenchSalesROUTES: RouteInfo[] = [
-
-  { path: '/benchsales/list', title: 'Consultant  Submissions', icon: 'nc-single-02', class: '', childMenu: null },
-  { path: '/interviews/list', title: 'Schedule Interviews', icon: 'nc-single-02', class: '', childMenu: null },
-  { path: '/consultantdocuments/list', title: 'Documents', icon: 'nc-single-02', class: '', childMenu: null },
-  { path: '/contacts/list', title: 'Contact List', icon: 'nc-single-02', class: '', childMenu: null },
-  { path: '/hotlist/list', title: 'Hot List', icon: 'nc-single-02', class: '', childMenu: null },
-  { path: '/profile', title: 'Your Profile', icon: 'nc-single-02', class: '', childMenu: null },
-];
-export const AdminROUTES: RouteInfo[] = [
-  { path: '/users/list', title: 'Users', icon: 'nc-single-02', class: '', childMenu: null },
-  { path: '/consultants/list', title: 'Consultants', icon: 'nc-calendar-60', class: '', childMenu: null },
-
-  // { path: '/consultants/inactivelist',        title: 'InActive Consultants', icon:'nc-calendar-60',  class: '' ,childMenu: null},
-  { path: '/adminInDocuments/list', title: 'In Active List', icon: 'nc-calendar-60', class: '', childMenu: null },
-  { path: '/admindocuments/list', title: 'Documents', icon: 'nc-calendar-60', class: '', childMenu: null },
-  { path: '/hotlist/list', title: 'Hot List', icon: 'nc-single-02', class: '', childMenu: null },
-  { path: '/interviews/list', title: 'Interviews', icon: 'nc-single-02', class: '', childMenu: null },
-  { path: '/jobs/list', title: 'Jobs', icon: 'nc-single-02', class: '', childMenu: null },
-  { path: '/profile', title: 'Your Profile', icon: 'nc-single-02', class: '', childMenu: null },
-  //{ path: '/recruiters/list', title: 'Submissions', icon: 'nc-single-02', class: '', childMenu: null },
 
 
-];
 export const headhuntersAdminROUTES: RouteInfo[] = [
   { path: '/headadminconsultants/list', title: 'Consultant List', icon: 'nc-calendar-60', class: '', childMenu: null },
-  { path: '/hotlist/list', title: 'Hot List', icon: 'nc-single-02', class: '', childMenu: null },
+  { path: '/headadminconsultants/hotlist', title: 'Hot List', icon: 'nc-single-02', class: '', childMenu: null },
   { path: '/profile', title: 'Your Profile', icon: 'nc-single-02', class: '', childMenu: null },
 
 ];
@@ -88,40 +58,384 @@ export const AccountsROUTES: RouteInfo[] = [
 @Component({
 
   selector: 'sidebar-cmp',
-  styles: ['.pd-top { padding-top: 17px; } .txt-color{ color:#fff}'],
+  styles: ['.pd-top { padding-top: 17px; } .txt-color{ color:#d94c27} .logo img{ width:160px; } .ui-menubar-root-list{ padding-top:9px !important; } .ui-menubar	 {  mouseover: #ff0000; background-color: #A80000;}.ui-state-hover {cursor:hand;}'],
 
   templateUrl: 'sidebar.component.html',
 })
 
 export class SidebarComponent implements OnInit {
+  calculatorModal: boolean;
+  calculatorModal1: boolean;
   menuexpectedrole: string;
   public menuItems: any[];
+  items: MenuItem[];
+  benchsaleMenu : MenuItem[];
+  adminMenu : MenuItem[];
+  headHunderMenu : MenuItem[];
+
+  headHunterAdminMenu : MenuItem[];
+  jobMenu : MenuItem[];
+  num1: number = 52;
+  num2: number = 20;
   public AdminmenuItems: any[];
   clock = ""
   clockHandle;
   constructor(private router: Router, private auth: CommonAuthService) {
 
   }
+  showCalculator() {
+    this.calculatorModal = true;
+  }
+  showCalculator1() {
+    this.calculatorModal1 = true;
+  }
+  ConvertToInt(val) {
+    return parseFloat(val);
+  }
   ngOnInit() {
+    this.items = [
+      {
+        icon: 'pi pi-fw pi-power-off',
+        label: 'My Account',
+        items: [
+          { label: 'Profile', routerLink: "/profile" },
+          { label: 'logout', command: (event) => {
+            //event.originalEvent: Browser event
+            //event.item: menuitem metadata
+            this.logout()
+        }},
+        ]
+      },
+
+    ];
+    this.adminMenu = [
+      {
+
+        label: 'Submissions',
+       // routerLink: "/benchsales/list",
+        items: [
+          { label: 'Add Submissions', routerLink: "/superadmin/sumissioncreate" },
+          { label: 'Schedule Interviews',  routerLink: "/superadmin/interviews" },
+          { label: 'All Submissions',  routerLink: "/superadmin/sumissionlist" },
+          { label: 'Send Email',  routerLink: "/superadmin/email" },
+
+        ]
+
+      },
+      {
+        icon: 'pi pi-fw pi-user',
+        label: 'Consultants',
+        routerLink: "/superadmin/consultantlist",
+
+      },
+      {
+        icon: 'pi pi-fw pi-key',
+        label: 'Jobs',
+        routerLink: "/jobs/list",
+
+      },
+      {
+        icon: 'pi pi-fw pi-file-o',
+        label: 'Employee Documents',
+        items: [
+          { label: 'Document List', routerLink: "/superadmin/documents" },
+          { label: 'In Active Docs',  routerLink: "/superadmin/documentsinactive" },
+          { label: 'Placed Docs',  routerLink: "/superadmin/documentsplaced" },
+          { label: 'Hot List',  routerLink: "/superadmin/hotlist" },
+        ]
+
+      },
+      {
+        icon: 'pi pi-fw pi-users',
+        label: 'Users',
+        routerLink: "/superadmin/userlist",
+
+      },
+      {
+        icon: 'pi pi-fw pi-dollar',
+        label: 'Calculations',
+        items: [
+
+            { label: 'Percentage Off', command: (event) => {
+            //event.originalEvent: Browser event
+            //event.item: menuitem metadata
+            this.calculatorModal = true;
+
+            },
+
+            },
+            { label: 'Calculator', command: (event) => {
+              //event.originalEvent: Browser event
+              //event.item: menuitem metadata
+              this.calculatorModal1 = true;
+
+              },
+
+              },
+
+        ]
+      },
+      {
+        icon: 'pi pi-fw pi-power-off',
+        label: 'My Account',
+        items: [
+          { label: 'Profile', routerLink: "/profile" },
+          { label: 'logout', command: (event) => {
+            //event.originalEvent: Browser event
+            //event.item: menuitem metadata
+            this.logout()
+        }},
+        ]
+      },
+
+    ];
+    this.benchsaleMenu = [
+      {
+
+        label: 'Submissions',
+       // routerLink: "/benchsales/list",
+        items: [
+          { label: 'Add Submissions', routerLink: "/benchsales/create" },
+          { label: 'My Submissions', routerLink: "/benchsales/mylist" },
+          { label: 'Schedule Interviews',  routerLink: "/benchsales/interviews" },
+          { label: 'All Submissions',  routerLink: "/benchsales/list" },
+          { label: 'All Contacts',  routerLink: "/benchsales/contacts" },
+        ]
+
+      },
+
+      {
+        icon: 'pi pi-fw pi-file-o',
+        label: 'Documents',
+        routerLink: "/benchsales/documentlist",
+
+      },
+
+      {
+        icon: 'pi pi-fw pi-dollar',
+        label: 'Calculations',
+        items: [
+
+            { label: 'Percentage Off', command: (event) => {
+            //event.originalEvent: Browser event
+            //event.item: menuitem metadata
+            this.calculatorModal = true;
+
+            },
+
+            },
+            { label: 'Calculator', command: (event) => {
+              //event.originalEvent: Browser event
+              //event.item: menuitem metadata
+              this.calculatorModal1 = true;
+
+              },
+
+              },
+
+        ]
+      },
+      {
+        icon: 'pi pi-fw pi-cloud',
+        label: 'Hotlist',
+        routerLink: "/benchsales/hotlist",
+
+      },
+      {
+        icon: 'pi pi-fw pi-power-off',
+        label: 'My Account',
+        items: [
+          { label: 'Profile', routerLink: "/profile" },
+          { label: 'logout', command: (event) => {
+            //event.originalEvent: Browser event
+            //event.item: menuitem metadata
+            this.logout()
+        }},
+        ]
+      },
+
+    ];
+    this.headHunterAdminMenu = [
+      {
+
+        label: 'Consultants',
+        items: [
+          { label: 'Consultants List', routerLink: "/headadminconsultants/list" },
+          { label: 'Add Consultant', routerLink: "/headadminconsultants/create" },
+        ]
+      },
+      {
+        icon: 'pi pi-fw pi-file-o',
+        label: 'HotList',
+        routerLink: "/headadminconsultants/hotlist",
+
+      },
+      {
+        icon: 'pi pi-fw pi-dollar',
+        label: 'Calculations',
+        items: [
+
+            { label: 'Percentage Off', command: (event) => {
+            //event.originalEvent: Browser event
+            //event.item: menuitem metadata
+            this.calculatorModal = true;
+
+            },
+
+            },
+            { label: 'Calculator', command: (event) => {
+              //event.originalEvent: Browser event
+              //event.item: menuitem metadata
+              this.calculatorModal1 = true;
+
+              },
+
+              },
+
+        ]
+      },
+      {
+        icon: 'pi pi-fw pi-power-off',
+        label: 'My Account',
+        items: [
+          { label: 'Profile', routerLink: "/profile" },
+          { label: 'logout', command: (event) => {
+            //event.originalEvent: Browser event
+            //event.item: menuitem metadata
+            this.logout()
+        }},
+        ]
+      },
+
+    ];
+    this.headHunderMenu = [
+      {
+
+        label: 'Consultants',
+        items: [
+          { label: 'Consultants List', routerLink: "/huntersconsultants/list" },
+          { label: 'Add Consultant', routerLink: "/huntersconsultants/create" },
+        ]
+      },
+      {
+        icon: 'pi pi-fw pi-file-o',
+        label: 'HotList',
+        routerLink: "/huntersconsultants/hotlist",
+
+      },
+      {
+        icon: 'pi pi-fw pi-dollar',
+        label: 'Calculations',
+        items: [
+
+            { label: 'Percentage Off', command: (event) => {
+            //event.originalEvent: Browser event
+            //event.item: menuitem metadata
+            this.calculatorModal = true;
+
+            },
+
+            },
+            { label: 'Calculator', command: (event) => {
+              //event.originalEvent: Browser event
+              //event.item: menuitem metadata
+              this.calculatorModal1 = true;
+
+              },
+
+              },
+
+        ]
+      },
+      {
+        icon: 'pi pi-fw pi-power-off',
+        label: 'My Account',
+        items: [
+          { label: 'Profile', routerLink: "/profile" },
+          { label: 'logout', command: (event) => {
+            //event.originalEvent: Browser event
+            //event.item: menuitem metadata
+            this.logout()
+        }},
+        ]
+      },
+
+    ];
+    this.jobMenu = [
+      {
+
+        label: 'Jobs',
+        items: [
+          { label: 'Jobs', routerLink: "/jobs/list" },
+
+        ]
+      },
+
+      {
+        icon: 'pi pi-fw pi-dollar',
+        label: 'Calculations',
+        items: [
+
+            { label: 'Percentage Off', command: (event) => {
+            //event.originalEvent: Browser event
+            //event.item: menuitem metadata
+            this.calculatorModal = true;
+
+            },
+
+            },
+            { label: 'Calculator', command: (event) => {
+              //event.originalEvent: Browser event
+              //event.item: menuitem metadata
+              this.calculatorModal1 = true;
+
+              },
+
+              },
+
+        ]
+      },
+      {
+        icon: 'pi pi-fw pi-power-off',
+        label: 'My Account',
+        items: [
+          { label: 'Profile', routerLink: "/profile" },
+          { label: 'logout', command: (event) => {
+            //event.originalEvent: Browser event
+            //event.item: menuitem metadata
+            this.logout()
+        }},
+        ]
+      },
+
+    ];
     this.clockHandle = setInterval(() => {
       this.clock = new Date().toLocaleString();
     }, 1000);
     this.menuexpectedrole = localStorage.getItem('role');
     console.log(this.menuexpectedrole)
     if (this.menuexpectedrole == 'Admin') {
-      this.menuItems = AdminROUTES.filter(menuItem => menuItem);
+     // this.menuItems = AdminROUTES.filter(menuItem => menuItem);
+     this.items =this.adminMenu;
     } else if (this.menuexpectedrole == 'HeadHunters') {
-      this.menuItems = HeadHunterROUTES.filter(menuItem => menuItem);
+      this.items =this.headHunderMenu;
+     // this.menuItems = HeadHunterROUTES.filter(menuItem => menuItem);
     } else if (this.menuexpectedrole == 'Recruiters') {
-      this.menuItems = RecruitersROUTES.filter(menuItem => menuItem);
+      this.items =this.benchsaleMenu;
+    //  this.menuItems = RecruitersROUTES.filter(menuItem => menuItem);
     } else if (this.menuexpectedrole == 'BenchSales') {
-      this.menuItems = BenchSalesROUTES.filter(menuItem => menuItem);
+      this.items =this.benchsaleMenu;
+   //   this.menuItems = BenchSalesROUTES.filter(menuItem => menuItem);
     } else if (this.menuexpectedrole == 'HeadHuntersAdmin') {
-      this.menuItems = headhuntersAdminROUTES.filter(menuItem => menuItem);
+      this.items =this.headHunterAdminMenu;
+    //  this.menuItems = headhuntersAdminROUTES.filter(menuItem => menuItem);
     } else if (this.menuexpectedrole == 'Accountmanager') {
-      this.menuItems = AccountsROUTES.filter(menuItem => menuItem);
+      this.items =this.jobMenu;
+     // this.menuItems = AccountsROUTES.filter(menuItem => menuItem);
     } else {
-      this.menuItems = ROUTES.filter(menuItem => menuItem);
+
+
+    //  this.menuItems = ROUTES.filter(menuItem => menuItem);
     }
 
   }
