@@ -16,7 +16,7 @@ export class EmailRestService {
     return this.http.get(`${environment.api}/getAllTimesheets`);
   }
   getConsultants(): Observable<any> {
-    return this.http.get(`${environment.api}/getAllConsultants/`);
+    return this.http.get(`${environment.api}/getAllConsultants`);
   }
   storeUser(form): Observable<any> {
     return this.http.post(`${environment.api}/store-consultant`,form.value);

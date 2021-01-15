@@ -13,7 +13,7 @@ export class UserRestService {
     return this.http.get(`${environment.api}/getAllTimesheets`);
   }
   getConsultants(): Observable<any> {
-    return this.http.get(`${environment.api}/jobs/`);
+    return this.http.get(`${environment.api}/jobs`);
   }
   storeUser(form): Observable<any> {
     return this.http.post(`${environment.api}/jobs`,form.value);

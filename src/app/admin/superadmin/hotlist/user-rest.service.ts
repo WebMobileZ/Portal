@@ -11,7 +11,7 @@ export class UserRestService {
 
 
   getConsultants(): Observable<any> {
-    return this.http.get(`${environment.api}/getHotlistConsultants/`);
+    return this.http.get(`${environment.api}/getHotlistConsultants`);
   }
 
 }

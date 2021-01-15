@@ -11,10 +11,10 @@ export class UserRestService {
 
 
   getConsultants(): Observable<any> {
-    return this.http.get(`${environment.api}/getHotlistConsultants/`);
+    return this.http.get(`${environment.api}/getHotlistConsultants`);
   }
   getVendorContacts(): Observable<any> {
-    return this.http.get(`${environment.api}/contacts/`);
+    return this.http.get(`${environment.api}/contacts`);
   }
  statusChangeConsultant(index): Observable<any> {
   var body = 'index='+index;

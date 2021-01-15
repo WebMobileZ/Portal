@@ -30,7 +30,7 @@ export class UserRestService {
     return this.http.post(`${environment.api}/submissions`, form.value);
   }
   getConsultantsOnly(): Observable<any> {
-    return this.http.get(`${environment.api}/getConsultantsOnly/`);
+    return this.http.get(`${environment.api}/getConsultantsOnly`);
   }
   storeClient(form): Observable<any> {
     return this.http.post(`${environment.api}/clients`, form.value);
@@ -50,7 +50,7 @@ export class UserRestService {
     return this.http.post(`${environment.api}/status-consultant`, index);
   }
   getConsultantsList(): Observable<any> {
-    return this.http.get(`${environment.api}/getConsultantsList/`);
+    return this.http.get(`${environment.api}/getConsultantsList`);
   }
   editUser(id): Observable<any> {
     return this.http.get(`${environment.api}/jobs/` + id);

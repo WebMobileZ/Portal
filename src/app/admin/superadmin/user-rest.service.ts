@@ -36,13 +36,13 @@ export class UserRestService {
     return this.http.get(`${environment.api}/submissions/`+ id);
   }
   getConsultants(): Observable<any> {
-    return this.http.get(`${environment.api}/getAllConsultantsAdmin/`);
+    return this.http.get(`${environment.api}/getAllConsultantsAdmin`);
   }
   getConsultantsInactive(): Observable<any> {
-    return this.http.get(`${environment.api}/getAllConsultantsAdminInactive/`);
+    return this.http.get(`${environment.api}/getAllConsultantsAdminInactive`);
   }
   getConsultantsPlaced(): Observable<any> {
-    return this.http.get(`${environment.api}/getAllConsultantsAdminPlaced/`);
+    return this.http.get(`${environment.api}/getAllConsultantsAdminPlaced`);
   }
   updateConsultantStatus(form,id): Observable<any> {
     return this.http.put(`${environment.api}/admin-store-consultant/` + id, form.value);

@@ -65,8 +65,8 @@
     <tr [pEditableRow]="rowData" [ngStyle]="{'background-color':getColor(rowData.vendorStatus)}" >
 
       <td>{{rowData.scheduleDate | date }} {{rowData.timezone}} </td>
-      <td><button *ngIf="rowData.consultant.employeePortalAccess =='D'"  class="ui-button-success"  (click)="createPortal($event,rowData.consultant.reportId);" data-toggle="tooltip" title="Crteate Employee Login"  icon="pi pi-plus" iconPos="left" pButton type="button"  ></button>
-        <span *ngIf="rowData.consultant.employeePortalAccess =='C'">
+      <td><button *ngIf="rowData.consultant.employeePortalAccess == 'D'"  class="ui-button-success"  (click)="createPortal($event,rowData.consultant.reportId);" data-toggle="tooltip" title="Crteate Employee Login"  icon="pi pi-plus" iconPos="left" pButton type="button"  ></button>
+        <span *ngIf="rowData.consultant.employeePortalAccess == 'C'">
         <a class="btn-length" data-toggle="tooltip" title="Employee Login Created" >
           <img src="./assets/img/selectlist.png" width="25px"></a>
       </span> &nbsp; {{rowData.consultant.consultatName }} </td>

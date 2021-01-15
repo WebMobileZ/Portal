@@ -11,7 +11,7 @@ export class UserRestService {
 
 
   getConsultants(): Observable<any> {
-    return this.http.get(`${environment.api}/interviewsubmissions/`);
+    return this.http.get(`${environment.api}/interviewsubmissions`);
   }
   storeUser(form): Observable<any> {
     return this.http.post(`${environment.api}/submissions`,form.value);
@@ -21,7 +21,7 @@ export class UserRestService {
     return this.http.post(`${environment.api}/status-consultant`,index);
   }
   getConsultantsList(): Observable<any> {
-    return this.http.get(`${environment.api}/getConsultantsList/`);
+    return this.http.get(`${environment.api}/getConsultantsList`);
   }
   editUser(id): Observable<any> {
     return this.http.get(`${environment.api}/jobs/` + id);

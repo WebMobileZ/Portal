@@ -13,10 +13,10 @@ export class UserRestService {
     return this.http.get(`${environment.api}/getAllTimesheets`);
   }
   getConsultants(): Observable<any> {
-    return this.http.get(`${environment.api}/getAllConsultants/`);
+    return this.http.get(`${environment.api}/getAllConsultants`);
   }
   getProductsSmall() {
-    return this.http.get<any>(`${environment.api}/vendorlist/`);
+    return this.http.get<any>(`${environment.api}/vendorlist`);
 
 }
 getProductsSmallpagination(page) {

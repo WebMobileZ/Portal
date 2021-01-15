@@ -110,10 +110,10 @@ updateSubmission(form,id): Observable<any> {
     return this.http.post(`${environment.api}/status-consultant`,index);
   }
   getConsultantsList(): Observable<any> {
-    return this.http.get(`${environment.api}/getConsultantsList/`);
+    return this.http.get(`${environment.api}/getConsultantsList`);
   }
   getConsultantsOnly(): Observable<any> {
-    return this.http.get(`${environment.api}/getConsultantsOnly/`);
+    return this.http.get(`${environment.api}/getConsultantsOnly`);
   }
   editUser(id): Observable<any> {
     return this.http.get(`${environment.api}/jobs/` + id);
