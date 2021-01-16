@@ -40,6 +40,8 @@ import { EmailCreateComponent} from './email/email-create/email-create.component
 import { AngularEditorModule } from '@kolkov/angular-editor';
 import {ChipsModule} from 'primeng/chips';
 import { ReplaceAdminPipe } from '../../replaceadmin-pipe';
+import {CardModule} from 'primeng/card';
+
 @NgModule({
   declarations: [UserIndexComponent,FieldPipe,ReplaceAdminPipe, UserCreateComponent, UserEditComponent,UserListComponent,DocumentsListComponent,ConsultantListComponent,ConsultantCreateComponent,ConsultantEditComponent,
     BenchListComponent,BenchCreateComponent,EmailCreateComponent,HotListComponent,InterviewComponent,DocumentsInactiveComponent,DocumentsPlacedComponent
@@ -55,6 +57,7 @@ import { ReplaceAdminPipe } from '../../replaceadmin-pipe';
     ButtonModule,
     ToastModule,
     InputTextModule,
+    CardModule,
     ProgressBarModule, ChipsModule,TabMenuModule, TooltipModule, NgxDropzoneModule, DropdownModule, FormsModule,InplaceModule
   ],
   providers: [

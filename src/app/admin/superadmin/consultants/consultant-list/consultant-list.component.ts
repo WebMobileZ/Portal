@@ -7,7 +7,7 @@ import { FormBuilder,FormGroup,FormControl } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 
 import { ConfirmationService } from 'primeng/api';
-
+import {CardModule} from 'primeng/card';
 
 const colors: any = {
   red: {
@@ -23,14 +23,19 @@ const colors: any = {
     secondary: '#FDF1BA',
   },
 };
+
+
 @Component({
+
   selector: 'app-user-list',
+
   // changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [MessageService,ConfirmationService],
-
   templateUrl: './consultant-list.component.html',
   styleUrls: ['./consultant-list.component.scss']
 })
+
+
 export class ConsultantListComponent implements OnInit {
   @ViewChild('dt', { static: true }) table: Table;
   @ViewChild('modalContent', { static: true }) modalContent: TemplateRef<any>;

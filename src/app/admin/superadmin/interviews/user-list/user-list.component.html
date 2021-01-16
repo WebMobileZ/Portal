@@ -1,5 +1,7 @@
-<h4 class="remove-margin"> Schedule Interviews </h4>
-
+<div class="mt-3">
+<h4> Schedule Interviews </h4>
+<div class="card">
+  <div class="card-body">
 <p-table #dt1 [columns]="scrollableCols" [autoLayout]="true" [value]="interviewschedules" [scrollable]="true" [filterDelay]="0"
   [globalFilterFields]="['consultatName']" [resizableColumns]="true" columnResizeMode="expand"
   [reorderableColumns]="true" autoLayout="true" dataKey="reportId" editMode="row" [paginator]="true" [rows]="10"
@@ -83,3 +85,6 @@
 </p-table>
 <p-confirmDialog key="confirm-drop-database" header="Confirmation" acceptLabel="Yes" rejectLabel="No"
   [(visible)]="confirmDropDatabaseDialogVisible"></p-confirmDialog>
+</div>
+</div>
+</div>

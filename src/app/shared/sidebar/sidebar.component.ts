@@ -123,19 +123,17 @@ export class SidebarComponent implements OnInit {
 
       },
       {
-        icon: 'pi pi-fw pi-user',
         label: 'Consultants',
         routerLink: "/superadmin/consultantlist",
 
       },
       {
-        icon: 'pi pi-fw pi-key',
+
         label: 'Jobs',
         routerLink: "/jobs/list",
 
       },
       {
-        icon: 'pi pi-fw pi-file-o',
         label: 'Employee Documents',
         items: [
           { label: 'Document List', routerLink: "/superadmin/documents" },
@@ -146,35 +144,33 @@ export class SidebarComponent implements OnInit {
 
       },
       {
-        icon: 'pi pi-fw pi-users',
         label: 'Users',
         routerLink: "/superadmin/userlist",
 
       },
-      {
-        icon: 'pi pi-fw pi-dollar',
-        label: 'Calculations',
-        items: [
+      // {
+      //   label: 'Calculations',
+      //   items: [
 
-            { label: 'Percentage Off', command: (event) => {
-            //event.originalEvent: Browser event
-            //event.item: menuitem metadata
-            this.calculatorModal = true;
+      //       { label: 'Percentage', command: (event) => {
+      //       //event.originalEvent: Browser event
+      //       //event.item: menuitem metadata
+      //       this.calculatorModal = true;
 
-            },
+      //       },
 
-            },
-            { label: 'Calculator', command: (event) => {
-              //event.originalEvent: Browser event
-              //event.item: menuitem metadata
-              this.calculatorModal1 = true;
+      //       },
+      //       // { label: 'Calculator', command: (event) => {
+      //       //   //event.originalEvent: Browser event
+      //       //   //event.item: menuitem metadata
+      //       //   this.calculatorModal1 = true;
 
-              },
+      //       //   },
 
-              },
+      //         //},
 
-        ]
-      },
+      //   ]
+      // },
       {
         icon: 'pi pi-fw pi-power-off',
         label: 'My Account',

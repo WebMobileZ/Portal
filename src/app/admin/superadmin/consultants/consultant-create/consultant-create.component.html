@@ -1,13 +1,7 @@
 <p-toast position="bottom-right"></p-toast>
-<div class="row">
-  <div class="col-md-12">
-    <h4 class="remove-margin">Add Consultant </h4>
+<div class="mt-3">
+  <h4>Add Consultant </h4>
     <div class="card">
-      <div class="card-header">
-        <!-- <h5 class="card-title">Edit Profile</h5> -->
-
-
-      </div>
       <div class="card-body">
         <form [formGroup]="registerForm" (ngSubmit)="registerUser()" enctype="multipart/form-data">
           <div class="row">
@@ -284,9 +278,9 @@
                 <select class="form-control" formControlName="resource">
                   <option value="">--select--</option>
                   <option value="LinkedIn">LinkedIn
-</option>
+                  </option>
                   <option value="Dice">Dice
-</option>
+                  </option>
                 </select>
 
                 <div *ngIf="resource.invalid && (resource.dirty || resource.touched)" class="form-text text-muted">
@@ -563,4 +557,3 @@
       </div>
     </div>
   </div>
-</div>

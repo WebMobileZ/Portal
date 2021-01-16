@@ -15,7 +15,9 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthInterceptor } from './auth/auth-interceptor.interceptor';
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+
 import { CommonModule } from '@angular/common';
+import {CardModule, } from 'primeng/card';
 import {TableModule} from 'primeng/table';
 import {ToastModule} from 'primeng/toast';
 
@@ -58,6 +60,7 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
     InputTextModule,
     ProgressBarModule,
     NavbarModule,
+    CardModule,
     ToastrModule.forRoot(),
     FooterModule,
     FixedPluginModule,  CalendarModule.forRoot({

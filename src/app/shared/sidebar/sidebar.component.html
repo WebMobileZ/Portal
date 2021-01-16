@@ -1,21 +1,14 @@
  <!-- MENU Start -->
-
- <div class="navbar-custom" >
-    <a routerLink="/dashboard" class="logo" style="color: #fff; padding-left:80px;padding-right:80px ;">
-      <img  src="../../assets/img/group.png"
-       class="svg-content">
+    <!-- <span class="txt-color txt-center" style="text-align: center;">
+      &nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; {{clock| date:'mediumTime':'EST'}}</span><br>
+    <span class="txt-color">{{clock| date:'fullDate':'EST'}}</span> -->
+<!-- end navbar-custom -->
+<nav class="navbar navbar-light bg-light">
+  <a class="navbar-brand" href="#">
+    <img src="../../assets/img/logo.png" height="30" width="auto">
   </a>
-
-  <p-menubar [model]="items" >
-
-    <span class="txt-color txt-center" style="text-align: center;">&nbsp; &nbsp; &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; {{clock| date:'mediumTime':'EST'}}</span><br>
-    <span class="txt-color">{{clock| date:'fullDate':'EST'}}</span>
-
-  </p-menubar>
-
-
-
-</div> <!-- end navbar-custom -->
+  <p-menubar [model]="items" ></p-menubar>
+</nav>
 <p-dialog header="percentage Off" [(visible)]="calculatorModal" [modal]="true" [style]="{width: '50vw'}"
   [baseZIndex]="10000" [draggable]="false" [resizable]="false">
 

@@ -1,74 +1,69 @@
-<h4 class="remove-margin"></h4>
+<!-- <div class="p-grid">
+  <div class="p-col-6 p-offset-3">6</div>
+</div> -->
 
-<div class="container" *ngIf="menuexpectedrole=='Admin'">
-
-  <div class="row row-cols-1 row-cols-sm-4 row-cols-md-4 g-3 p-3">
-    <div class="col">
+<!-- <div class="p-grid">
+    <div class="p-col">1</div>
+    <div class="p-col">2</div>
+    <div class="p-col">3</div>
+</div> -->
+<div class="container">
+<div class="mt-5">
+<div class="card text-center p-3">
+<div *ngIf="menuexpectedrole=='Admin'">
+  <div class="row ">
+    <div class="col-sm-4">
      <a [routerLink]="['/superadmin/userlist']">
       <figure class="figure">
-        <img src="../../assets/img/conversation.png" class="figure-img img-fluid rounded" >
-        <figcaption class="figure-caption text-center">Users</figcaption>
+        <img src="../../assets/img/user.png" width="100" height="80">
+        <h4 style="margin: 10px 0px 20px; color:#d94c27">Users</h4>
       </figure>
     </a>
     </div>
-    <div class="col">
+    <div class="col-sm-4">
       <a [routerLink]="['/superadmin/interviews']">
         <figure class="figure">
-          <img src="../../assets/img/schedule.png" class="figure-img img-fluid rounded">
-          <figcaption class="figure-caption text-center">Interview Schedule</figcaption>
+          <img src="../../assets/img/calendar.png" width="100" height="80">
+          <h4 style="margin: 10px 0px 20px; color:#d94c27">Interview Schedule</h4>
         </figure>
       </a>
 
     </div>
-    <div class="col">
+    <div class="col-sm-4">
       <a [routerLink]="['/superadmin/documents']">
         <figure class="figure">
-          <img src="../../assets/img/download-btn.png" class="figure-img img-fluid rounded" >
-          <figcaption class="figure-caption text-center">Download Center</figcaption>
+          <img src="../../assets/img/download.png" width="100" height="80">
+          <h4 style="margin: 10px 0px 20px; color:#d94c27">Download Center</h4>
         </figure>
       </a>
 
     </div>
-    <div class="col">
-      <a [routerLink]="['/superadmin/sumissionlist']">
-        <figure class="figure">
-          <img src="../../assets/img/work-from-home.png" class="figure-img img-fluid rounded" >
-          <figcaption class="figure-caption text-center">Bench Sales <br>Submissions</figcaption>
-        </figure>
-      </a>
-    </div>
-
   </div>
-  <div class="row row-cols-1 row-cols-sm-4 row-cols-md-4 g-3 p-3">
-    <div class="col">
+  
+
+
+  <div class="row mt-4">
+    <div class="col-sm-4">
       <a [routerLink]="['/superadmin/consultantlist']">
         <figure class="figure">
-          <img src="../../assets/img/consultation.png" class="figure-img img-fluid rounded" >
-          <figcaption class="figure-caption text-center">Head Hunters</figcaption>
+          <img src="../../assets/img/search.png" width="100" height="80">
+          <h4 style="margin: 10px 0px 20px; color:#d94c27">Head Hunters</h4>
         </figure>
       </a>
     </div>
-    <div class="col">
+    <div class="col-sm-4">
+      <a [routerLink]="['/superadmin/sumissionlist']">
+        <figure class="figure">
+          <img src="../../assets/img/submisions.png" width="100" height="80">
+          <h4 style="margin: 10px 0px 20px; color:#d94c27">Bench Sales Submissions</h4>
+        </figure>
+      </a>
+    </div>
+    <div class="col-sm-4">
       <a [routerLink]="['/calculator']">
         <figure class="figure">
-          <img src="../../assets/img/calculator.png" class="figure-img img-fluid rounded" >
-          <figcaption class="figure-caption text-center">Calculater</figcaption>
-        </figure>
-      </a>
-    </div>
-    <div class="col">
-      <a [routerLink]="['/superadmin/hotlist']">
-        <figure class="figure">
-          <img src="../../assets/img/search.png" class="figure-img img-fluid rounded" >
-          <figcaption class="figure-caption text-center">Hot List</figcaption>
-        </figure>
-      </a>
-    </div>
-    <div class="col">
-      <a [routerLink]="['/jobs/list']">
-        <figure class="figure">
-          <img src="../../assets/img/businessman.png" class="figure-img img-fluid rounded" >
-          <figcaption class="figure-caption text-center">Jobs</figcaption>
+          <img src="../../assets/img/calculator1.png" width="100" height="80">
+          <h4 style="margin: 10px 0px 20px; color:#d94c27">Percentage</h4>
         </figure>
       </a>
     </div>
@@ -76,8 +71,23 @@
 </div>
 <div class="container" *ngIf="menuexpectedrole=='BenchSales'">
 
-  <div class="row row-cols-1 row-cols-sm-4 row-cols-md-4 g-3 p-3">
-
+  <div class="row mt-4">
+    <div class="col-sm-4">
+      <a [routerLink]="['/superadmin/hotlist']">
+        <figure class="figure">
+          <img src="../../assets/img/search.png" class="figure-img img-fluid rounded" >
+          <figcaption class="figure-caption text-center">Hot List</figcaption>
+        </figure>
+      </a>
+    </div>
+    <div class="col-sm-3">
+      <a [routerLink]="['/jobs/list']">
+        <figure class="figure">
+          <img src="../../assets/img/businessman.png" class="figure-img img-fluid rounded" >
+          <figcaption class="figure-caption text-center">Jobs</figcaption>
+        </figure>
+      </a>
+    </div>
     <div class="col">
       <a [routerLink]="['/benchsales/interviews']">
         <figure class="figure">
@@ -217,4 +227,7 @@
   <div class="row row-cols-1 row-cols-sm-4 row-cols-md-4 g-3 p-3">
 
   </div>
+</div> 
+</div> 
+</div>
 </div>

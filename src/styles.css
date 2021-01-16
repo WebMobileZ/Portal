@@ -6,7 +6,45 @@
 .sidebar-wrapper{
   background: #a11b34;
 }
-
-
+body .ui-menubar {
+  background-color:"#fff";
+  border: none;
+}
+.bg-light {
+  background-color: #fff !important;
+}
+body .ui-button .ui-button:enabled:active {
+  background-color: #d94c27;
+  border-color: #d94c27;
+}
+body .ui-button {
+  background-color: #d94c27;
+  border: 1px solid #d94c27;
+}
+.btn-primary {
+  background-color: #d94c27;
+  border: 1px solid #d94c27;
+}
+.btn-primary:disabled {
+  color: #fff;
+  background-color: #d94c27;
+  border-color: #d94c27;
+}
+body .ui-button:enabled:active {
+  background-color: #d94c27;
+  color: #ffffff;
+  border-color: #d94c27;
+}
+body .ui-button:enabled:hover {
+  background-color: #d94c27;
+  color: #ffffff;
+  border-color: #d94c27;
+}
+h4 {
+  line-height: 33px;
+}
+body .ui-chips > ul.ui-inputtext {
+  display: block;
+}
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

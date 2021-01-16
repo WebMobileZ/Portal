@@ -1,6 +1,7 @@
-<h4 class="remove-margin"> Consultant List  <a routerLink="/superadmin/consultantcreate" class="btn btn-primary">
-  Add Consultant
- </a></h4>
+<div class="mt-3">
+<h4> Consultant List  <a routerLink="/superadmin/consultantcreate" class="btn btn-primary pull-right">Add Consultant</a></h4>
+<div class="card">
+  <div class="card-body">
 <p-table #dt [columns]="scrollableCols" [autoLayout]="true"  [value]="timeSheets" [scrollable]="true"
    [filterDelay]="0" [globalFilterFields]="['consultatName']" [resizableColumns]="true" columnResizeMode="expand" [reorderableColumns]="true" [loading]="loading"
   autoLayout="true"  dataKey="reportId" editMode="row" [paginator]="true" [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,25,50]">
@@ -154,3 +155,6 @@
   </ng-template>
 </p-table>
 <p-confirmDialog key="confirm-drop-database" header="Confirmation" acceptLabel="Yes" rejectLabel="No" [(visible)]="confirmDropDatabaseDialogVisible"></p-confirmDialog>
+</div>
+</div>
+</div>

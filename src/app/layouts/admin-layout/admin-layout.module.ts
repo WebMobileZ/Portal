@@ -12,13 +12,15 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ToastModule } from 'primeng/toast';
 import { UserService } from './user.serviuce';
 import { CalculatorDashComponent } from '../../pages/calculatorDash/calculatordash.component';
+import {CardModule} from 'primeng/card';
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule.forChild(AdminLayoutRoutes),
     FormsModule,
-    NgbModule, ReactiveFormsModule, ToastModule
+    NgbModule, ReactiveFormsModule, ToastModule,
+    CardModule
   ],
   declarations: [
     DashboardComponent,CalculatorPageComponent,
