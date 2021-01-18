@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
   //api: 'http://localhost:8001/api'
- api: 'http://demo.webmobilez.com/public/api'
+ api: 'https://demo.webmobilez.com/public/api'
 };
