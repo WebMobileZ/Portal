@@ -1,15 +1,13 @@
 import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
-
-import { UserRoutingModule } from './user-routing.module';
-import { UserIndexComponent } from './user-index/user-index.component';
-
-import { UserListComponent } from './user-list/user-list.component';
-import { UserCreateComponent } from './user-create/user-create.component';
-import { UserEditComponent } from './user-edit/user-edit.component';
-import { UserRestService } from './user-rest.service';
+import { UserRoutingModule } from './job-routing.module';
+import { JobIndexComponent } from './job-index/job-index.component';
+import { JobListComponent } from './job-list/job-list.component';
+import { JobCreateComponent } from './job-create/job-create.component';
+import { JobEditComponent } from './job-edit/job-edit.component';
+import { JobRestService } from './job-rest.service';
 import { ReactiveFormsModule } from '@angular/forms';
-
 import { TableModule } from 'primeng/table';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MultiSelectModule } from 'primeng/multiselect';
@@ -29,16 +27,15 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { DropdownModule } from 'primeng/dropdown';
 import {InplaceModule} from 'primeng/inplace';
-import { FieldPipe3 } from '../../field3.pipe';
+import { FieldPipe2 } from '../../field2.pipe';
 import { ConfirmDialogModule} from 'primeng/confirmdialog';
-import {VirtualScrollerModule} from 'primeng/virtualscroller';
-import { InputMaskModule } from 'primeng/inputmask';
+import { AngularEditorModule } from '@kolkov/angular-editor';
 @NgModule({
-  declarations: [UserIndexComponent, UserListComponent,UserCreateComponent,UserEditComponent,FieldPipe3],
+  declarations: [JobIndexComponent, JobListComponent,JobCreateComponent,JobEditComponent,FieldPipe2],
   imports: [
-    CommonModule,
+    CommonModule,  AngularEditorModule ,
     UserRoutingModule,
-    ReactiveFormsModule, TableModule, MultiSelectModule,VirtualScrollerModule,
+    ReactiveFormsModule,TableModule, MultiSelectModule,
     SliderModule,
     DialogModule,
     MultiSelectModule,
@@ -46,11 +43,10 @@ import { InputMaskModule } from 'primeng/inputmask';
     ButtonModule,
     ToastModule,
     InputTextModule,ConfirmDialogModule,
-    InputMaskModule,
     ProgressBarModule, TabMenuModule, TooltipModule, FileUploadModule, NgxDropzoneModule, DropdownModule, FormsModule,InplaceModule
   ],
   providers: [
-    UserRestService
+    JobRestService
   ]
 })
-export class UserModule { }
+export class JobModule { }

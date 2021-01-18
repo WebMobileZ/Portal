@@ -5,7 +5,7 @@ import { UserIndexComponent } from './user-index/user-index.component';
 import { UserListComponent } from './user-list/user-list.component';
 import { UserCreateComponent } from './user-create/user-create.component';
 import { UserEditComponent } from './user-edit/user-edit.component';
-import { HotListheadAdminComponent } from './hotlist/user-list/user-list.component';
+
 const routes: Routes = [
  // { path: 'list', component: UserListComponent, outlet: 'users' },
   {
@@ -14,20 +14,16 @@ const routes: Routes = [
     children: [
 
       {path: 'list', component: UserListComponent,data: {
-        expectedRole: 'HeadHuntersAdmin'
-      }},
-      {path: 'inactivelist', component: UserListComponent,data: {
-        expectedRole: 'HeadHuntersAdmin'
+
+        expectedRole: ['HeadHuntersAdmin', 'Admin']
       }},
       {path: 'create', component: UserCreateComponent,data: {
-        expectedRole: 'HeadHuntersAdmin'
+        expectedRole: ['HeadHuntersAdmin', 'Admin']
       }},
       {path: 'edit/:id', component: UserEditComponent,data: {
-        expectedRole: 'HeadHuntersAdmin'
+        expectedRole: ['HeadHuntersAdmin', 'Admin']
       }},
-      {path: 'hotlist', component: HotListheadAdminComponent,data: {
-        expectedRole: 'HeadHuntersAdmin'
-      }},
+
   ]}
 ];
 

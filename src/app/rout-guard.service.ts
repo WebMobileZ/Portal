@@ -18,14 +18,13 @@ export class RouteGuardService {
   		(authSuccess: boolean) => {
 
   			if(authSuccess){
-          if ( role != expectedRole ) {
-
+          if ( expectedRole.includes(role)  ) {
+            return true;
+          }else{
             console.log("role"+role)
             console.log("expected role"+expectedRole)
             this.router.navigate(['/dashboard']);
-
           }
-  				return true;
   			}else{
   				this.router.navigate(['/home']);
   			}

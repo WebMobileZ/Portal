@@ -1,9 +1,9 @@
 import { Component, OnInit,ViewChild, ɵConsole } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { UserRestService } from '../user-rest.service';
+import { JobRestService } from '../job-rest.service';
 import {SelectItem} from 'primeng/api';
 import {SelectItemGroup} from 'primeng/api';
-
+import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { FormGroup, FormControlName, Validators, FormControl } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 export class Profile {
@@ -11,14 +11,44 @@ export class Profile {
   }
 }
 @Component({
-  selector: 'app-user-create',
-  templateUrl: './user-create.component.html',
+  selector: 'accountmanager-user-create',
+  templateUrl: './job-create.component.html',
   providers: [MessageService],
-  styleUrls: ['./user-create.component.scss']
+  styleUrls: ['./job-create.component.scss']
 })
-export class UserCreateComponent implements OnInit {
+export class JobEditComponent implements OnInit {
   @ViewChild('dd', { static: true }) dropdown: any;
   countries: any[];
+  htmlContent = '';
+
+  config: AngularEditorConfig = {
+    editable: true,
+    spellcheck: true,
+    height: '15rem',
+    minHeight: '5rem',
+    placeholder: 'Enter text here...',
+    translate: 'no',
+    defaultParagraphSeparator: 'p',
+    defaultFontName: 'Arial',
+    toolbarHiddenButtons: [
+      ['bold']
+      ],
+    customClasses: [
+      {
+        name: "quote",
+        class: "quote",
+      },
+      {
+        name: 'redText',
+        class: 'redText'
+      },
+      {
+        name: "titleText",
+        class: "titleText",
+        tag: "h1",
+      },
+    ]
+  };
   selectedCountry: string;
   cars: SelectItem[];
   states: SelectItem[];
@@ -33,7 +63,7 @@ export class UserCreateComponent implements OnInit {
   imageFile: {link: string, file: any, name: string};
   registerForm: FormGroup;
   registerForm1: FormGroup;
-  constructor(private route: ActivatedRoute,private messageService: MessageService, private userRest: UserRestService, private router: Router) { }
+  constructor(private route: ActivatedRoute,private messageService: MessageService, private userRest: JobRestService, private router: Router) { }
 
   ngOnInit() {
     this.states = [
@@ -125,43 +155,44 @@ export class UserCreateComponent implements OnInit {
   this.str ='';
 
     this.registerForm = new FormGroup({
-      'consultatName': new FormControl(null, [Validators.required, Validators.minLength(2)]),
-      'consultantLastName': new FormControl(null, [Validators.required, Validators.minLength(2)]),
-      'consultantEmail': new FormControl(null, [Validators.required, Validators.email]),
-      'consultatMobileNumber': new FormControl(null, [Validators.required]),
-      'technology': new FormControl(null, [Validators.required]),
-      'otherTechnologies': new FormControl(null),
+      'jobTitle': new FormControl(null, [Validators.required, Validators.minLength(2)]),
+      'jobVisaType': new FormControl(null, [Validators.required]),
+      'jobLocation': new FormControl(null, [Validators.required]),
+      'jobExperience': new FormControl(null, [Validators.required]),
+      'jobTechnology': new FormControl(null, [Validators.required]),
+      'jobDescription': new FormControl(null, [Validators.required]),
+      'workType' : new FormControl(null, [Validators.required]),
+      'jobStatus': new FormControl(null, [Validators.required]),
+      'mainRequirement': new FormControl(null, [Validators.required]),
       'rate': new FormControl(null, [Validators.required]),
-      'visaType': new FormControl(null, [Validators.required]),
-      'city': new FormControl(null, [Validators.required]),
-      'state': new FormControl(null, [Validators.required]),
-      'willingLocation': new FormControl(null, [Validators.required]),
-      'documentsCollected': new FormControl(null, [Validators.required]),
-      'resource': new FormControl(null),
-      'ssn': new FormControl(null, [Validators.required]),
-      'bestContactNumber': new FormControl(null),
-      'linkedInUrl': new FormControl(null),
-      'skypeId': new FormControl(null),
-      'comments': new FormControl(null),
-      'note': new FormControl(null),
-      'reportStatus': new FormControl(null, [Validators.required]),
-      'experience': new FormControl(null, [Validators.required]),
-      'availability': new FormControl(null),
-      'priority': new FormControl(null,[Validators.required]),
-      'resume': new FormControl(null),
-      'otherDocument': new FormControl(null),
-      'workAuthorization': new FormControl(null),
-      'technology1': new FormControl(null),
-      'rating1': new FormControl(null),
-      'technology2': new FormControl(null),
-      'rating2': new FormControl(null),
-      'technology3': new FormControl(null),
-      'rating3': new FormControl(null),
-      'technology4': new FormControl(null),
-      'rating4': new FormControl(null),
+      'duration': new FormControl(null, [Validators.required]),
+      'client' : new FormControl(null, [Validators.required]),
+      'jobResponsibility' :  new FormControl(null, [Validators.required]),
 
+    });
+    let id = this.route.snapshot.params.id;
+    this.userRest.editUser(id).subscribe(
+     (response) => {
+       this.registerForm.patchValue({
 
-    })
+        'jobTitle': response.user.jobTitle,
+      'jobVisaType':  response.user.jobVisaType,
+      'jobLocation':  response.user.jobLocation,
+      'jobExperience': response.user.jobExperience,
+      'jobTechnology':  response.user.jobTechnology,
+      'jobDescription':  response.user.jobDescription,
+      'jobStatus':  response.user.jobStatus,
+      'workType' : response.user.workType,
+      'mainRequirement' : response.user.mainRequirement,
+      'rate' : response.user.rate,
+      'duration' : response.user.duration,
+      'client' : response.user.client,
+      'jobResponsibility' : response.user.jobResponsibility,
+
+       })
+     },
+     (error) => console.log(error)
+   );
   }
   imagesPreviewResume(event) {
     if (event.target.files && event.target.files[0]) {
@@ -282,34 +313,20 @@ imagesPreviewWorkAuth(event) {
         this.str+= event.key;
       }
   }
+  get jobTitle() { return this.registerForm.get('jobTitle'); }
+  get jobDescription() { return this.registerForm.get('jobDescription'); }
+  get jobTechnology() { return this.registerForm.get('jobTechnology'); }
+  get jobExperience() { return this.registerForm.get('jobExperience'); }
+  get jobLocation() { return this.registerForm.get('jobLocation'); }
+  get jobVisaType() { return this.registerForm.get('jobVisaType'); }
+  get jobStatus() { return this.registerForm.get('jobStatus'); }
+get workType(){ return this.registerForm.get('workType');  }
+get mainRequirement(){ return this.registerForm.get('mainRequirement');  }
+get rate(){ return this.registerForm.get('rate');  }
+get duration() {return this.registerForm.get('duration');  }
+get client() {return this.registerForm.get('duration');   }
+get jobResponsibility() {return this.registerForm.get('jobResponsibility');   }
 
-  get consultatName() { return this.registerForm.get('consultatName'); }
-  get consultantEmail() { return this.registerForm.get('consultantEmail'); }
-  get visaType() { return this.registerForm.get('visaType'); }
-  get consultantLastName() { return this.registerForm.get('consultantLastName'); }
-  get consultatMobileNumber() { return this.registerForm.get('consultatMobileNumber'); }
-  get technology() { return this.registerForm.get('technology'); }
-  get otherTechnologies() { return this.registerForm.get('otherTechnologies'); }
-  get rate() { return this.registerForm.get('rate'); }
-  get ravisaTypete() { return this.registerForm.get('visaType'); }
-  get city() { return this.registerForm.get('city'); }
-  get state() { return this.registerForm.get('state'); }
-  get willingLocation() { return this.registerForm.get('willingLocation'); }
-  get documentsCollected() { return this.registerForm.get('documentsCollected'); }
-  get resource() { return this.registerForm.get('resource'); }
-  get ssn() { return this.registerForm.get('ssn'); }
-  get bestContactNumber() { return this.registerForm.get('bestContactNumber'); }
-  get linkedInUrl() { return this.registerForm.get('linkedInUrl'); }
-  get skypeId() { return this.registerForm.get('skypeId'); }
-  get comments() { return this.registerForm.get('comments'); }
-  get note() { return this.registerForm.get('note'); }
-  get reportStatus() { return this.registerForm.get('reportStatus'); }
-  get experience() { return this.registerForm.get('experience'); }
-  get availability() { return this.registerForm.get('availability'); }
-  get priority() { return this.registerForm.get('priority'); }
-  get resume() { return this.registerForm.get('resume'); }
-  get otherDocument() { return this.registerForm.get('otherDocument'); }
-  get workAuthorization() { return this.registerForm.get('workAuthorization'); }
 
   registerUser(){
      console.log(this.registerForm);
@@ -322,12 +339,26 @@ imagesPreviewWorkAuth(event) {
         response => {
           console.log(response),
           this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Consultant is added' });
-          this.router.navigate(['headadminconsultants/list'])
+          this.router.navigate(['jobs/list'])
         },
         error =>{
           this.serverErrors = error.error.errors
         }
       );
+  }
+
+  updateUserDetails(){
+    let id = this.route.snapshot.params.id;
+    this.userRest.updateUser(this.registerForm,id).subscribe(
+      (response) => {
+        console.log(response),
+        this.router.navigate(['jobs/list'])
+      },
+      error =>{
+        this.serverErrors = error.error.errors
+      },
+      () => console.log('completed')
+    );
   }
 
 }

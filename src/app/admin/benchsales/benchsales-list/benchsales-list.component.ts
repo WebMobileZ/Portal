@@ -24,14 +24,14 @@ const colors: any = {
   },
 };
 @Component({
-  selector: 'app-user-list',
+  selector: 'benchsales-user-list',
   // changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [MessageService, ConfirmationService],
 
-  templateUrl: './mybenchsales-list.component.html',
-  styleUrls: ['./mybenchsales-list.component.scss']
+  templateUrl: './benchsales-list.component.html',
+  styleUrls: ['./benchsales-list.component.scss']
 })
-export class MyBenchSalesComponent implements OnInit {
+export class BenchsalesListComponent implements OnInit {
   @ViewChild('dt', { static: true }) table: Table;
   @ViewChild('modalContent', { static: true }) modalContent: TemplateRef<any>;
   timeSheets: Array<object> = [];
@@ -85,7 +85,7 @@ export class MyBenchSalesComponent implements OnInit {
 
     //imitate db connection over a network
     setTimeout(() => {
-      this.userRest.getMySubmissions((event)).subscribe(
+      this.userRest.getConsultants((event)).subscribe(
         (response) => {
           console.log(this.timeSheets = response.submissions.data);
           this.totalRecords = response.submissions.total;

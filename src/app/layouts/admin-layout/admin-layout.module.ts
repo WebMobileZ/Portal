@@ -4,7 +4,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AdminLayoutRoutes } from './admin-layout.routing';
-
 import { DashboardComponent } from '../../pages/dashboard/dashboard.component';
 import { CalculatorPageComponent } from '../../pages/calculatorpage/calculatorpage.component';
 import { UserComponent } from '../../pages/user/user.component';

@@ -1,15 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-import { UserRoutingModule } from './user-routing.module';
-import { UserIndexComponent } from './user-index/user-index.component';
-
-import { UserListComponent } from './user-list/user-list.component';
-import { UserCreateComponent } from './user-create/user-create.component';
-import { UserEditComponent } from './user-edit/user-edit.component';
-import { UserRestService } from './user-rest.service';
+import { ShareRoutingModule } from './share-routing.module';
+import { ShareIndexComponent } from './shareindex/share-index.component';
+import { ShareRestService } from './share-rest.service';
 import { ReactiveFormsModule } from '@angular/forms';
-
 import { TableModule } from 'primeng/table';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MultiSelectModule } from 'primeng/multiselect';
@@ -28,29 +22,47 @@ import { FileUploadModule } from 'primeng/fileupload';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { DropdownModule } from 'primeng/dropdown';
-import {InplaceModule} from 'primeng/inplace';
-import { FieldPipe3 } from '../../field3.pipe';
-import { ConfirmDialogModule} from 'primeng/confirmdialog';
-import {VirtualScrollerModule} from 'primeng/virtualscroller';
+import { InplaceModule } from 'primeng/inplace';
+import { FieldPipeShare } from '../../fieldshare.pipe';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { InterviewListComponent } from './interview/interview-list.component';
+import { HotListBenchComponent } from './hotlist/hot-list.component';
+import { VirtualScrollerModule } from 'primeng/virtualscroller';
 import { InputMaskModule } from 'primeng/inputmask';
+import { SharePipe } from '../../share-pipe.pipe';
+import { CalendarModule } from 'primeng/calendar';
+
 @NgModule({
-  declarations: [UserIndexComponent, UserListComponent,UserCreateComponent,UserEditComponent,FieldPipe3],
+  declarations: [ShareIndexComponent, SharePipe,
+    FieldPipeShare, HotListBenchComponent, InterviewListComponent],
   imports: [
     CommonModule,
-    UserRoutingModule,
-    ReactiveFormsModule, TableModule, MultiSelectModule,VirtualScrollerModule,
+    ShareRoutingModule,
+    ReactiveFormsModule,
+    TableModule,
+    MultiSelectModule,
+    CalendarModule,
+    VirtualScrollerModule,
     SliderModule,
     DialogModule,
     MultiSelectModule,
     ContextMenuModule,
     ButtonModule,
     ToastModule,
-    InputTextModule,ConfirmDialogModule,
+    InputTextModule,
+    ConfirmDialogModule,
     InputMaskModule,
-    ProgressBarModule, TabMenuModule, TooltipModule, FileUploadModule, NgxDropzoneModule, DropdownModule, FormsModule,InplaceModule
+    ProgressBarModule,
+    TabMenuModule,
+    TooltipModule,
+    FileUploadModule,
+    NgxDropzoneModule,
+    DropdownModule,
+    FormsModule,
+    InplaceModule
   ],
   providers: [
-    UserRestService
+    ShareRestService
   ]
 })
-export class UserModule { }
+export class ShareModule { }

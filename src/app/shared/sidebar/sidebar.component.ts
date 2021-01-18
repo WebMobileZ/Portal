@@ -14,35 +14,8 @@ export interface RouteInfo {
 }
 
 export const ROUTES: RouteInfo[] = [
-  {
-    path: '/dashboard', title: 'Dashboard', icon: 'nc-bank', class: '',
-    childMenu: null
-  },
-  { path: '/profile', title: 'Your Profile', icon: 'nc-single-02', class: '', childMenu: null },
-
-];
-
-export const RecruitersROUTES: RouteInfo[] = [
-
-  { path: '/recruiters/list', title: 'Submissions ', icon: 'nc-single-02', class: '', childMenu: null },
-
-  { path: '/consultantdocuments/list', title: 'Employee Documents', icon: 'nc-single-02', class: '', childMenu: null },
-  { path: '/hotlist/list', title: 'Hot List', icon: 'nc-single-02', class: '', childMenu: null },
-  { path: '/profile', title: 'Your Profile', icon: 'nc-single-02', class: '', childMenu: null },
-];
 
 
-export const headhuntersAdminROUTES: RouteInfo[] = [
-  { path: '/headadminconsultants/list', title: 'Consultant List', icon: 'nc-calendar-60', class: '', childMenu: null },
-  { path: '/headadminconsultants/hotlist', title: 'Hot List', icon: 'nc-single-02', class: '', childMenu: null },
-  { path: '/profile', title: 'Your Profile', icon: 'nc-single-02', class: '', childMenu: null },
-
-];
-export const AccountsROUTES: RouteInfo[] = [
-
-  { path: '/jobs/list', title: 'Jobs', icon: 'nc-single-02', class: '', childMenu: null },
-  { path: '/hotlist/list', title: 'Hot List', icon: 'nc-single-02', class: '', childMenu: null },
-  { path: '/profile', title: 'Your Profile', icon: 'nc-single-02', class: '', childMenu: null },
 ];
 // [
 //     { path: '/users',         title: 'User List',         icon:'nc-bank',       class: '' },
@@ -53,7 +26,7 @@ export const AccountsROUTES: RouteInfo[] = [
 //     { path: '/user',          title: 'User Profile',      icon:'nc-single-02',  class: '' },
 //     { path: '/table',         title: 'Table List',        icon:'nc-tile-56',    class: '' },
 //     { path: '/typography',    title: 'Typography',        icon:'nc-caps-small', class: '' }
-// ];HeadHuntersAdmin
+// ];
 
 @Component({
 
@@ -68,13 +41,14 @@ export class SidebarComponent implements OnInit {
   calculatorModal1: boolean;
   menuexpectedrole: string;
   public menuItems: any[];
+  commonmenu: any;
+  benchsaleMenu: MenuItem[];
   items: MenuItem[];
-  benchsaleMenu : MenuItem[];
-  adminMenu : MenuItem[];
-  headHunderMenu : MenuItem[];
-
-  headHunterAdminMenu : MenuItem[];
-  jobMenu : MenuItem[];
+  adminMenu: MenuItem[];
+  defaultmenu: MenuItem[];
+  headHunderMenu: MenuItem[];
+  headHunterAdminMenu: MenuItem[];
+  jobMenu: MenuItem[];
   num1: number = 52;
   num2: number = 20;
   public AdminmenuItems: any[];
@@ -93,38 +67,38 @@ export class SidebarComponent implements OnInit {
     return parseFloat(val);
   }
   ngOnInit() {
-    this.items = [
-      {
-        icon: 'pi pi-fw pi-power-off',
-        label: 'My Account',
-        items: [
-          { label: 'Profile', routerLink: "/profile" },
-          { label: 'logout', command: (event) => {
+    this.commonmenu =
+    {
+      icon: 'pi pi-fw pi-power-off',
+      label: 'My Account',
+      items: [
+        { label: 'Profile', routerLink: "/profile" },
+        {
+          label: 'logout', command: (event) => {
             //event.originalEvent: Browser event
             //event.item: menuitem metadata
             this.logout()
-        }},
-        ]
-      },
-
-    ];
+          }
+        },
+      ]
+    };
     this.adminMenu = [
       {
 
         label: 'Submissions',
-       // routerLink: "/benchsales/list",
+        // routerLink: "/benchsales/list",
         items: [
-          { label: 'Add Submissions', routerLink: "/superadmin/sumissioncreate" },
-          { label: 'Schedule Interviews',  routerLink: "/superadmin/interviews" },
-          { label: 'All Submissions',  routerLink: "/superadmin/sumissionlist" },
-          { label: 'Send Email',  routerLink: "/superadmin/email" },
+          { label: 'Add Submissions', routerLink: "/benchsales/create" },
+          { label: 'Schedule Interviews', routerLink: "/commonmodule/interviews" },
+          { label: 'All Submissions', routerLink: "/benchsales/list" },
+          { label: 'Send Email', routerLink: "/superadmin/email" },
 
         ]
 
       },
       {
         label: 'Consultants',
-        routerLink: "/superadmin/consultantlist",
+        routerLink: "/headadminconsultants/list",
 
       },
       {
@@ -137,9 +111,9 @@ export class SidebarComponent implements OnInit {
         label: 'Employee Documents',
         items: [
           { label: 'Document List', routerLink: "/superadmin/documents" },
-          { label: 'In Active Docs',  routerLink: "/superadmin/documentsinactive" },
-          { label: 'Placed Docs',  routerLink: "/superadmin/documentsplaced" },
-          { label: 'Hot List',  routerLink: "/superadmin/hotlist" },
+          { label: 'In Active Docs', routerLink: "/superadmin/documentsinactive" },
+          { label: 'Placed Docs', routerLink: "/superadmin/documentsplaced" },
+          { label: 'Hot List', routerLink: "/commonmodule/hotlist" },
         ]
 
       },
@@ -148,6 +122,7 @@ export class SidebarComponent implements OnInit {
         routerLink: "/superadmin/userlist",
 
       },
+      this.commonmenu
       // {
       //   label: 'Calculations',
       //   items: [
@@ -171,31 +146,21 @@ export class SidebarComponent implements OnInit {
 
       //   ]
       // },
-      {
-        icon: 'pi pi-fw pi-power-off',
-        label: 'My Account',
-        items: [
-          { label: 'Profile', routerLink: "/profile" },
-          { label: 'logout', command: (event) => {
-            //event.originalEvent: Browser event
-            //event.item: menuitem metadata
-            this.logout()
-        }},
-        ]
-      },
+
 
     ];
+
     this.benchsaleMenu = [
       {
 
         label: 'Submissions',
-       // routerLink: "/benchsales/list",
+        // routerLink: "/benchsales/list",
         items: [
           { label: 'Add Submissions', routerLink: "/benchsales/create" },
           { label: 'My Submissions', routerLink: "/benchsales/mylist" },
-          { label: 'Schedule Interviews',  routerLink: "/benchsales/interviews" },
-          { label: 'All Submissions',  routerLink: "/benchsales/list" },
-          { label: 'All Contacts',  routerLink: "/benchsales/contacts" },
+          { label: 'Schedule Interviews', routerLink: "/commonmodule/interviews" },
+          { label: 'All Submissions', routerLink: "/benchsales/list" },
+          { label: 'All Contacts', routerLink: "/benchsales/contacts" },
         ]
 
       },
@@ -205,50 +170,12 @@ export class SidebarComponent implements OnInit {
         label: 'Documents',
         routerLink: "/benchsales/documentlist",
 
-      },
+      }, {
 
-      {
-        icon: 'pi pi-fw pi-dollar',
-        label: 'Calculations',
-        items: [
+        label: 'HotList',
+        routerLink: "/commonmodule/hotlist",
 
-            { label: 'Percentage Off', command: (event) => {
-            //event.originalEvent: Browser event
-            //event.item: menuitem metadata
-            this.calculatorModal = true;
-
-            },
-
-            },
-            { label: 'Calculator', command: (event) => {
-              //event.originalEvent: Browser event
-              //event.item: menuitem metadata
-              this.calculatorModal1 = true;
-
-              },
-
-              },
-
-        ]
-      },
-      {
-        icon: 'pi pi-fw pi-cloud',
-        label: 'Hotlist',
-        routerLink: "/benchsales/hotlist",
-
-      },
-      {
-        icon: 'pi pi-fw pi-power-off',
-        label: 'My Account',
-        items: [
-          { label: 'Profile', routerLink: "/profile" },
-          { label: 'logout', command: (event) => {
-            //event.originalEvent: Browser event
-            //event.item: menuitem metadata
-            this.logout()
-        }},
-        ]
-      },
+      }, this.commonmenu
 
     ];
     this.headHunterAdminMenu = [
@@ -259,49 +186,12 @@ export class SidebarComponent implements OnInit {
           { label: 'Consultants List', routerLink: "/headadminconsultants/list" },
           { label: 'Add Consultant', routerLink: "/headadminconsultants/create" },
         ]
-      },
-      {
-        icon: 'pi pi-fw pi-file-o',
+      }, {
+
         label: 'HotList',
-        routerLink: "/headadminconsultants/hotlist",
+        routerLink: "/commonmodule/hotlist",
 
-      },
-      {
-        icon: 'pi pi-fw pi-dollar',
-        label: 'Calculations',
-        items: [
-
-            { label: 'Percentage Off', command: (event) => {
-            //event.originalEvent: Browser event
-            //event.item: menuitem metadata
-            this.calculatorModal = true;
-
-            },
-
-            },
-            { label: 'Calculator', command: (event) => {
-              //event.originalEvent: Browser event
-              //event.item: menuitem metadata
-              this.calculatorModal1 = true;
-
-              },
-
-              },
-
-        ]
-      },
-      {
-        icon: 'pi pi-fw pi-power-off',
-        label: 'My Account',
-        items: [
-          { label: 'Profile', routerLink: "/profile" },
-          { label: 'logout', command: (event) => {
-            //event.originalEvent: Browser event
-            //event.item: menuitem metadata
-            this.logout()
-        }},
-        ]
-      },
+      }, this.commonmenu
 
     ];
     this.headHunderMenu = [
@@ -312,49 +202,8 @@ export class SidebarComponent implements OnInit {
           { label: 'Consultants List', routerLink: "/huntersconsultants/list" },
           { label: 'Add Consultant', routerLink: "/huntersconsultants/create" },
         ]
-      },
-      {
-        icon: 'pi pi-fw pi-file-o',
-        label: 'HotList',
-        routerLink: "/huntersconsultants/hotlist",
+      }
 
-      },
-      {
-        icon: 'pi pi-fw pi-dollar',
-        label: 'Calculations',
-        items: [
-
-            { label: 'Percentage Off', command: (event) => {
-            //event.originalEvent: Browser event
-            //event.item: menuitem metadata
-            this.calculatorModal = true;
-
-            },
-
-            },
-            { label: 'Calculator', command: (event) => {
-              //event.originalEvent: Browser event
-              //event.item: menuitem metadata
-              this.calculatorModal1 = true;
-
-              },
-
-              },
-
-        ]
-      },
-      {
-        icon: 'pi pi-fw pi-power-off',
-        label: 'My Account',
-        items: [
-          { label: 'Profile', routerLink: "/profile" },
-          { label: 'logout', command: (event) => {
-            //event.originalEvent: Browser event
-            //event.item: menuitem metadata
-            this.logout()
-        }},
-        ]
-      },
 
     ];
     this.jobMenu = [
@@ -365,73 +214,39 @@ export class SidebarComponent implements OnInit {
           { label: 'Jobs', routerLink: "/jobs/list" },
 
         ]
-      },
-
-      {
-        icon: 'pi pi-fw pi-dollar',
-        label: 'Calculations',
-        items: [
-
-            { label: 'Percentage Off', command: (event) => {
-            //event.originalEvent: Browser event
-            //event.item: menuitem metadata
-            this.calculatorModal = true;
-
-            },
-
-            },
-            { label: 'Calculator', command: (event) => {
-              //event.originalEvent: Browser event
-              //event.item: menuitem metadata
-              this.calculatorModal1 = true;
-
-              },
-
-              },
-
-        ]
-      },
-      {
-        icon: 'pi pi-fw pi-power-off',
-        label: 'My Account',
-        items: [
-          { label: 'Profile', routerLink: "/profile" },
-          { label: 'logout', command: (event) => {
-            //event.originalEvent: Browser event
-            //event.item: menuitem metadata
-            this.logout()
-        }},
-        ]
-      },
+      }
 
     ];
     this.clockHandle = setInterval(() => {
       this.clock = new Date().toLocaleString();
     }, 1000);
+
+
     this.menuexpectedrole = localStorage.getItem('role');
     console.log(this.menuexpectedrole)
     if (this.menuexpectedrole == 'Admin') {
-     // this.menuItems = AdminROUTES.filter(menuItem => menuItem);
-     this.items =this.adminMenu;
+      // this.menuItems = AdminROUTES.filter(menuItem => menuItem);
+      this.items = this.adminMenu;
+      console.log(this.adminMenu)
     } else if (this.menuexpectedrole == 'HeadHunters') {
-      this.items =this.headHunderMenu;
-     // this.menuItems = HeadHunterROUTES.filter(menuItem => menuItem);
+      this.headHunderMenu;
+      // this.menuItems = HeadHunterROUTES.filter(menuItem => menuItem);
     } else if (this.menuexpectedrole == 'Recruiters') {
-      this.items =this.benchsaleMenu;
-    //  this.menuItems = RecruitersROUTES.filter(menuItem => menuItem);
+      this.benchsaleMenu;
+      //  this.menuItems = RecruitersROUTES.filter(menuItem => menuItem);
     } else if (this.menuexpectedrole == 'BenchSales') {
-      this.items =this.benchsaleMenu;
-   //   this.menuItems = BenchSalesROUTES.filter(menuItem => menuItem);
+      this.items = this.benchsaleMenu;
+      //   this.menuItems = BenchSalesROUTES.filter(menuItem => menuItem);
     } else if (this.menuexpectedrole == 'HeadHuntersAdmin') {
-      this.items =this.headHunterAdminMenu;
-    //  this.menuItems = headhuntersAdminROUTES.filter(menuItem => menuItem);
+      this.items = this.headHunterAdminMenu;
+      //  this.menuItems = headhuntersAdminROUTES.filter(menuItem => menuItem);
     } else if (this.menuexpectedrole == 'Accountmanager') {
-      this.items =this.jobMenu;
-     // this.menuItems = AccountsROUTES.filter(menuItem => menuItem);
+      this.jobMenu;
+      // this.menuItems = AccountsROUTES.filter(menuItem => menuItem);
     } else {
 
-
-    //  this.menuItems = ROUTES.filter(menuItem => menuItem);
+      this.defaultmenu;
+      //  this.menuItems = ROUTES.filter(menuItem => menuItem);
     }
 
   }
